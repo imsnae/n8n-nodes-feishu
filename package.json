@@ -13,14 +13,14 @@
     "feishu-bot"
   ],
   "license": "MIT",
-  "homepage": "",
+  "homepage": "https://github.com/imsnae/n8n-nodes-feishu#readme",
   "author": {
     "name": "snae",
     "email": "horizonyume@gmail.com"
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/imsnae/n8n-nodes-feishu.git"
   },
   "engines": {
     "node": ">=22"
