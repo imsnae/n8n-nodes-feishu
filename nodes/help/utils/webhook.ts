@@ -529,8 +529,6 @@ export function createSendAndWaitMessageBody(
 	const subject = config.title;
 	const message = config.message;
 
-	console.log('config value: ', config);
-
 	const content = {
 		schema: '2.0',
 		config: {

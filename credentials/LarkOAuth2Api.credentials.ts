@@ -1,4 +1,4 @@
-import { Icon, ICredentialType, INodeProperties } from 'n8n-workflow';
+import type { Icon, ICredentialType, INodeProperties } from 'n8n-workflow';
 import { BaseUrl, Credentials } from '../nodes/help/type/enums';
 
 export class LarkOAuth2Api implements ICredentialType {

@@ -1,14 +1,13 @@
-import {
+import type {
 	IExecuteFunctions,
 	INodeListSearchResult,
 	ILoadOptionsFunctions,
 	INodeExecutionData,
 	INodeType,
 	INodeTypeDescription,
-	NodeConnectionTypes,
-	NodeOperationError,
 	IDataObject,
 } from 'n8n-workflow';
+import { NodeConnectionTypes, NodeOperationError } from 'n8n-workflow';
 import ResourceFactory from '../help/builder/ResourceFactory';
 
 import { configuredOutputs } from '../help/utils/parameters';

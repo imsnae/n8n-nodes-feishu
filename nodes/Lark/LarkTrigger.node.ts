@@ -1,14 +1,13 @@
-import {
+import type {
 	INodeType,
 	INodeTypeDescription,
 	ITriggerFunctions,
 	ITriggerResponse,
-	NodeConnectionTypes,
-	NodeOperationError,
 	IRun,
 	IDataObject,
 	IExecuteFunctions,
 } from 'n8n-workflow';
+import { NodeConnectionTypes, NodeOperationError } from 'n8n-workflow';
 import { Credentials, FileType } from '../help/type/enums';
 import { WSClient } from '../lark-sdk/ws-client';
 import { EventDispatcher } from '../lark-sdk/handler/event-handler';

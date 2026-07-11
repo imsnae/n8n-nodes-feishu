@@ -1,4 +1,5 @@
-import { IExecuteFunctions, IHttpRequestOptions, JsonObject, NodeApiError } from 'n8n-workflow';
+import type { IExecuteFunctions, IHttpRequestOptions, JsonObject } from 'n8n-workflow';
+import { NodeApiError } from 'n8n-workflow';
 import { Credentials } from '../type/enums';
 
 class RequestUtils {
