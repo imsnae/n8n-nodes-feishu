@@ -8,7 +8,7 @@ import { DESCRIPTIONS } from '../../../help/description';
 export default {
 	name: WORDING.RecallMessage,
 	value: OperationType.RecallMessage,
-	order: 196,
+	order: 203,
 	options: [
 		DESCRIPTIONS.MESSAGE_ID,
 		{

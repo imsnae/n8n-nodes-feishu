@@ -8,7 +8,7 @@ import { timeoutAndBatchingCollection } from '../../../help/utils/options';
 export default {
 	name: WORDING.CreateChat,
 	value: OperationType.CreateChat,
-	order: 100,
+	order: 80,
 	options: [
 		{
 			displayName: 'Name (群聊名称)',

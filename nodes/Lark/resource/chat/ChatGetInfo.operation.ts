@@ -9,7 +9,7 @@ import { timeoutAndBatchingCollection } from '../../../help/utils/options';
 export default {
 	name: WORDING.GetChatInfo,
 	value: OperationType.GetChatInfo,
-	order: 97,
+	order: 83,
 	options: [
 		DESCRIPTIONS.CHAT_ID,
 		timeoutAndBatchingCollection,

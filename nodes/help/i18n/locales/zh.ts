@@ -194,6 +194,11 @@ export const WORDING_ZH: IWording = {
 	AddChatManagers: '添加群管理员',
 	RemoveChatManagers: '移除群管理员',
 	IsInChat: '用户是否在群中',
+	UpdateChatAnnouncement: '更新群公告',
+	GetChatAnnouncement: '获取群公告',
+	SetChatTopNotice: '设置置顶公告',
+	DeleteChatTopNotice: '删除置顶公告',
+	GetChatLink: '获取群链接',
 
 	// Common
 	Options: '选项',

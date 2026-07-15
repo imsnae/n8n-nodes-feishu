@@ -9,7 +9,7 @@ import { DESCRIPTIONS } from '../../../help/description';
 export default {
 	name: WORDING.UploadImage,
 	value: OperationType.UploadImage,
-	order: 193,
+	order: 243,
 	options: [
 		DESCRIPTIONS.BINARY_PROPERTY_NAME,
 		{

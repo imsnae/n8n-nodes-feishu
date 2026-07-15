@@ -8,7 +8,7 @@ import { DESCRIPTIONS } from '../../../help/description';
 export default {
 	name: WORDING.GetMessageResource,
 	value: OperationType.GetMessageResourceFile,
-	order: 210,
+	order: 247,
 	options: [
 		DESCRIPTIONS.MESSAGE_ID,
 		DESCRIPTIONS.RESOURCE_KEY,

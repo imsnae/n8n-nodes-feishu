@@ -11,7 +11,7 @@ import {
 export default {
 	name: WORDING.GetMessageContentResource,
 	value: OperationType.GetMessageContentResource,
-	order: 195,
+	order: 242,
 	options: [
 		DESCRIPTIONS.MESSAGE_ID,
 		DESCRIPTIONS.RESOURCE_TYPE,

@@ -8,7 +8,7 @@ import { DESCRIPTIONS } from '../../../help/description';
 export default {
 	name: WORDING.DeleteLimitedCard,
 	value: OperationType.DeleteLimitedCard,
-	order: 180,
+	order: 233,
 	options: [
 		DESCRIPTIONS.MESSAGE_ID,
 		{

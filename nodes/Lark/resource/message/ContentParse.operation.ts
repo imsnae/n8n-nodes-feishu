@@ -10,7 +10,7 @@ import { WORDING } from '../../../help/wording';
 export default {
 	name: WORDING.ParseMessageContent,
 	value: OperationType.ParseMessageContent,
-	order: 100,
+	order: 240,
 	options: [
 		{
 			displayName: 'Message Content (消息内容)',

@@ -7,14 +7,14 @@ import { DESCRIPTIONS } from '../../../help/description';
 import { timeoutAndBatchingCollection } from '../../../help/utils/options';
 
 export default {
-	name: WORDING.IsInChat,
-	value: OperationType.IsInChat,
-	order: 95,
+	name: WORDING.DeleteChatTopNotice,
+	value: OperationType.DeleteChatTopNotice,
+	order: 88,
 	options: [
 		DESCRIPTIONS.CHAT_ID,
 		timeoutAndBatchingCollection,
 		{
-			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/im-v1/chat-member/is_in_chat">${WORDING.OpenDocument}</a>`,
+			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/im-v1/chat/top_notice/delete_top_notice">${WORDING.OpenDocument}</a>`,
 			name: 'notice',
 			type: 'notice',
 			default: '',
@@ -24,8 +24,8 @@ export default {
 		const chat_id = this.getNodeParameter('chat_id', index) as string;
 
 		const { data } = await RequestUtils.request.call(this, {
-			method: 'GET',
-			url: `/open-apis/im/v1/chats/${chat_id}/members/is_in_chat`,
+			method: 'POST',
+			url: `/open-apis/im/v1/chats/${chat_id}/top_notice/delete_top_notice`,
 		});
 
 		return data;

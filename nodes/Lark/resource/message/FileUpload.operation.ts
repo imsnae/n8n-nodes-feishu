@@ -9,7 +9,7 @@ import { DESCRIPTIONS } from '../../../help/description';
 export default {
 	name: WORDING.UploadFile,
 	value: OperationType.UploadFile,
-	order: 191,
+	order: 245,
 	options: [
 		DESCRIPTIONS.MESSAGE_UPLOAD_FILE_TYPE,
 		DESCRIPTIONS.FILE_DURATION,

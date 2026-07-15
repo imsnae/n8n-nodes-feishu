@@ -8,8 +8,14 @@ import { returnAllAndLimitOptions, timeoutAndBatchingCollection } from '../../..
 export default {
 	name: WORDING.MessageSearch,
 	value: OperationType.MessageSearch,
-	order: 206,
+	order: 215,
 	options: [
+		{
+			displayName: '⚠️ This operation requires User Token (OAuth2) authentication. Tenant Access Token is not supported. Switch to \'Lark OAuth2 API\' in the node\'s Authentication setting.',
+			name: 'authNotice',
+			type: 'notice',
+			default: '',
+		},
 		{
 			displayName: 'Query (搜索关键词)',
 			name: 'query',

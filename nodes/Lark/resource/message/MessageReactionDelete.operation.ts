@@ -8,7 +8,7 @@ import { DESCRIPTIONS } from '../../../help/description';
 export default {
 	name: WORDING.MessageReactionDelete,
 	value: OperationType.MessageReactionDelete,
-	order: 213,
+	order: 218,
 	options: [
 		DESCRIPTIONS.MESSAGE_ID,
 		{

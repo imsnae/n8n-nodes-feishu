@@ -10,7 +10,7 @@ import { handlePagination } from '../../../help/utils/pagination';
 export default {
 	name: WORDING.MessageReactionList,
 	value: OperationType.MessageReactionList,
-	order: 212,
+	order: 217,
 	options: [
 		DESCRIPTIONS.MESSAGE_ID,
 		...returnAllAndLimitOptions,

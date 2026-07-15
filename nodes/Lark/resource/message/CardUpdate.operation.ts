@@ -9,7 +9,7 @@ import NodeUtils from '../../../help/utils/node';
 export default {
 	name: WORDING.UpdateMessageCard,
 	value: OperationType.UpdateMessageCard,
-	order: 182,
+	order: 230,
 	options: [
 		DESCRIPTIONS.MESSAGE_ID,
 		DESCRIPTIONS.MESSAGE_CONTENT,

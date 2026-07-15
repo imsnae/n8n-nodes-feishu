@@ -8,7 +8,7 @@ import { DESCRIPTIONS } from '../../../help/description';
 export default {
 	name: WORDING.ForwardMessage,
 	value: OperationType.ForwardMessage,
-	order: 197,
+	order: 204,
 	options: [
 		DESCRIPTIONS.MESSAGE_ID,
 		DESCRIPTIONS.RECEIVE_ID_TYPE,

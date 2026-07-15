@@ -21,7 +21,7 @@ import { parseJsonParameter } from '../../GenericFunctions';
 export default {
 	name: WORDING.SendStreamMessage,
 	value: OperationType.SendStreamMessage,
-	order: 100,
+	order: 252,
 	options: [
 		{
 			displayName:

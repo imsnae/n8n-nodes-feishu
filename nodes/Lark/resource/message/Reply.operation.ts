@@ -9,7 +9,7 @@ import NodeUtils from '../../../help/utils/node';
 export default {
 	name: WORDING.ReplyMessage,
 	value: OperationType.ReplyMessage,
-	order: 199,
+	order: 201,
 	options: [
 		DESCRIPTIONS.MESSAGE_ID,
 		DESCRIPTIONS.MESSAGE_TYPE,

@@ -9,7 +9,7 @@ import { handlePagination } from '../../../help/utils/pagination';
 export default {
 	name: WORDING.MessagePinList,
 	value: OperationType.MessagePinList,
-	order: 220,
+	order: 221,
 	options: [
 		{
 			displayName: 'Chat ID (群聊 ID)',

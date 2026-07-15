@@ -7,7 +7,7 @@ import { OperationType } from '../../../help/type/enums';
 export default {
 	name: WORDING.BatchMessageReadUsers,
 	value: OperationType.BatchMessageReadUsers,
-	order: 217,
+	order: 214,
 	options: [
 		{
 			displayName: 'Batch Message ID (批量消息 ID)',

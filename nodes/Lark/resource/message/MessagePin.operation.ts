@@ -8,7 +8,7 @@ import { DESCRIPTIONS } from '../../../help/description';
 export default {
 	name: WORDING.MessagePin,
 	value: OperationType.MessagePin,
-	order: 218,
+	order: 219,
 	options: [
 		DESCRIPTIONS.MESSAGE_ID,
 		{

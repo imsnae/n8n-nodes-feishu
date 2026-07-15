@@ -86,9 +86,9 @@ export const WORDING_EN: IWording = {
 	BatchMessageRecall: '批量撤回消息（Recall Batch Message）',
 	BatchMessageProgress: '查询批量消息进度（Batch Message Progress）',
 	BatchMessageReadUsers: '获取批量消息已读用户（Batch Message Read Users）',
-	MessagePin: '置顶消息（Pin Message）',
-	MessageUnpin: '取消置顶（Unpin Message）',
-	MessagePinList: '获取置顶列表（Pin List）',
+	MessagePin: 'Pin Message (置顶消息)',
+	MessageUnpin: 'Unpin Message (取消置顶)',
+	MessagePinList: 'Pin List (置顶列表)',
 
 	// Document
 	CreateDocument: 'Create',
@@ -194,6 +194,11 @@ export const WORDING_EN: IWording = {
 	AddChatManagers: 'Add Managers (添加管理员)',
 	RemoveChatManagers: 'Remove Managers (移除管理员)',
 	IsInChat: 'Is In Chat (是否在群中)',
+	UpdateChatAnnouncement: 'Update Announcement (更新群公告)',
+	GetChatAnnouncement: 'Get Announcement (获取群公告)',
+	SetChatTopNotice: 'Set Top Notice (设置置顶公告)',
+	DeleteChatTopNotice: 'Delete Top Notice (删除置顶公告)',
+	GetChatLink: 'Get Chat Link (获取群链接)',
 
 	// Common
 	Options: 'Options',

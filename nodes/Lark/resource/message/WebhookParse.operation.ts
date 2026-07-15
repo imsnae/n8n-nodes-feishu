@@ -36,7 +36,7 @@ const generateChallenge = (
 export default {
 	name: WORDING.ParseWebhookMessage,
 	value: OperationType.ParseWebhookMessage,
-	order: 10,
+	order: 251,
 	options: [
 		{
 			displayName: 'Encrypt Key',

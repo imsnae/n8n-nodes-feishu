@@ -9,7 +9,7 @@ import { timeoutAndBatchingCollection } from '../../../help/utils/options';
 export default {
 	name: WORDING.AddChatManagers,
 	value: OperationType.AddChatManagers,
-	order: 91,
+	order: 93,
 	options: [
 		DESCRIPTIONS.CHAT_ID,
 		{

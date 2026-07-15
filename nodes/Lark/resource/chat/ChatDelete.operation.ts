@@ -9,7 +9,7 @@ import { timeoutAndBatchingCollection } from '../../../help/utils/options';
 export default {
 	name: WORDING.DeleteChat,
 	value: OperationType.DeleteChat,
-	order: 98,
+	order: 82,
 	options: [
 		DESCRIPTIONS.CHAT_ID,
 		timeoutAndBatchingCollection,

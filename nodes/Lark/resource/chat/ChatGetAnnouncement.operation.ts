@@ -7,14 +7,14 @@ import { DESCRIPTIONS } from '../../../help/description';
 import { timeoutAndBatchingCollection } from '../../../help/utils/options';
 
 export default {
-	name: WORDING.IsInChat,
-	value: OperationType.IsInChat,
-	order: 95,
+	name: WORDING.GetChatAnnouncement,
+	value: OperationType.GetChatAnnouncement,
+	order: 86,
 	options: [
 		DESCRIPTIONS.CHAT_ID,
 		timeoutAndBatchingCollection,
 		{
-			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/im-v1/chat-member/is_in_chat">${WORDING.OpenDocument}</a>`,
+			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/im-v1/chat/announcement/get">${WORDING.OpenDocument}</a>`,
 			name: 'notice',
 			type: 'notice',
 			default: '',
@@ -25,7 +25,7 @@ export default {
 
 		const { data } = await RequestUtils.request.call(this, {
 			method: 'GET',
-			url: `/open-apis/im/v1/chats/${chat_id}/members/is_in_chat`,
+			url: `/open-apis/im/v1/chats/${chat_id}/announcement`,
 		});
 
 		return data;

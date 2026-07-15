@@ -16,7 +16,7 @@ export default {
 	name: WORDING.SendAndWaitMessage,
 	value: SEND_AND_WAIT_OPERATION,
 	action: 'Send message and wait',
-	order: 1,
+	order: 250,
 	options: [
 		DESCRIPTIONS.RECEIVE_ID_TYPE,
 		{

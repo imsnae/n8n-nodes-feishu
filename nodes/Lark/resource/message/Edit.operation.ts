@@ -9,7 +9,7 @@ import NodeUtils from '../../../help/utils/node';
 export default {
 	name: WORDING.EditMessage,
 	value: OperationType.EditMessage,
-	order: 198,
+	order: 202,
 	options: [
 		DESCRIPTIONS.MESSAGE_ID,
 		{

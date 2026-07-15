@@ -8,7 +8,7 @@ import { DESCRIPTIONS } from '../../../help/description';
 export default {
 	name: WORDING.GetMessage,
 	value: OperationType.GetMessage,
-	order: 220,
+	order: 205,
 	options: [
 		DESCRIPTIONS.MESSAGE_ID,
 		{

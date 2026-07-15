@@ -205,6 +205,11 @@ export interface IWording {
 	AddChatManagers: string;
 	RemoveChatManagers: string;
 	IsInChat: string;
+	UpdateChatAnnouncement: string;
+	GetChatAnnouncement: string;
+	SetChatTopNotice: string;
+	DeleteChatTopNotice: string;
+	GetChatLink: string;
 
 	// Common
 	Options: string;

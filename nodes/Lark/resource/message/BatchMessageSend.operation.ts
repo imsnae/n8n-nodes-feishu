@@ -9,7 +9,7 @@ import NodeUtils from '../../../help/utils/node';
 export default {
 	name: WORDING.BatchMessageSend,
 	value: OperationType.BatchMessageSend,
-	order: 214,
+	order: 211,
 	options: [
 		DESCRIPTIONS.RECEIVE_ID_TYPE,
 		{

@@ -7,7 +7,7 @@ import { OperationType } from '../../../help/type/enums';
 export default {
 	name: WORDING.MessageUnpin,
 	value: OperationType.MessageUnpin,
-	order: 219,
+	order: 220,
 	options: [
 		{
 			displayName: 'Message ID (消息 ID)',

@@ -9,7 +9,7 @@ import { returnAllAndLimitOptions, timeoutAndBatchingCollection } from '../../..
 export default {
 	name: WORDING.SearchChat,
 	value: OperationType.SearchChat,
-	order: 95,
+	order: 89,
 	options: [
 		{
 			displayName: 'Query (搜索关键词)',

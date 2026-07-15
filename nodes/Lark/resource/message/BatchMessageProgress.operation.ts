@@ -7,7 +7,7 @@ import { OperationType } from '../../../help/type/enums';
 export default {
 	name: WORDING.BatchMessageProgress,
 	value: OperationType.BatchMessageProgress,
-	order: 216,
+	order: 213,
 	options: [
 		{
 			displayName: 'Batch Message ID (批量消息 ID)',

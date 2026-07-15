@@ -9,7 +9,7 @@ import { timeoutAndBatchingCollection } from '../../../help/utils/options';
 export default {
 	name: WORDING.UpdateChat,
 	value: OperationType.UpdateChat,
-	order: 99,
+	order: 81,
 	options: [
 		DESCRIPTIONS.CHAT_ID,
 		{

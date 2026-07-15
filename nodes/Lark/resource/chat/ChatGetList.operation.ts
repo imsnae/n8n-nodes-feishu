@@ -9,7 +9,7 @@ import { returnAllAndLimitOptions, timeoutAndBatchingCollection } from '../../..
 export default {
 	name: WORDING.GetChatList,
 	value: OperationType.GetChatList,
-	order: 96,
+	order: 84,
 	options: [
 		DESCRIPTIONS.USER_ID_TYPE,
 		{

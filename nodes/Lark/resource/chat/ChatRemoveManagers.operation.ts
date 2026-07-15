@@ -9,7 +9,7 @@ import { timeoutAndBatchingCollection } from '../../../help/utils/options';
 export default {
 	name: WORDING.RemoveChatManagers,
 	value: OperationType.RemoveChatManagers,
-	order: 90,
+	order: 94,
 	options: [
 		DESCRIPTIONS.CHAT_ID,
 		{

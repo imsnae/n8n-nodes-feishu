@@ -217,6 +217,11 @@ export declare const enum OperationType {
 	AddChatManagers = 'addManagers',
 	RemoveChatManagers = 'removeManagers',
 	IsInChat = 'isInChat',
+	UpdateChatAnnouncement = 'updateAnnouncement',
+	GetChatAnnouncement = 'getAnnouncement',
+	SetChatTopNotice = 'setTopNotice',
+	DeleteChatTopNotice = 'deleteTopNotice',
+	GetChatLink = 'getLink',
 
 	// Task
 	CreateTask = 'create',

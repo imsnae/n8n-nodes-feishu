@@ -8,7 +8,7 @@ import { DESCRIPTIONS } from '../../../help/description';
 export default {
 	name: WORDING.DownloadImage,
 	value: OperationType.DownloadImage,
-	order: 192,
+	order: 244,
 	options: [
 		DESCRIPTIONS.RESOURCE_KEY,
 		DESCRIPTIONS.OUTPUT_AS_BINARY,

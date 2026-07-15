@@ -10,7 +10,7 @@ import { handlePagination } from '../../../help/utils/pagination';
 export default {
 	name: WORDING.GetMessageList,
 	value: OperationType.GetMessageList,
-	order: 205,
+	order: 206,
 	options: [
 		{
 			displayName: 'Container ID Type (容器 ID 类型)',

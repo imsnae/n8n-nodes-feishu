@@ -7,14 +7,21 @@ import { DESCRIPTIONS } from '../../../help/description';
 import { timeoutAndBatchingCollection } from '../../../help/utils/options';
 
 export default {
-	name: WORDING.IsInChat,
-	value: OperationType.IsInChat,
-	order: 95,
+	name: WORDING.SetChatTopNotice,
+	value: OperationType.SetChatTopNotice,
+	order: 87,
 	options: [
 		DESCRIPTIONS.CHAT_ID,
+		{
+			displayName: 'Top Notice (置顶公告)',
+			name: 'chat_top_notice',
+			type: 'json',
+			default: '[]',
+			description: 'Array of top notice objects in JSON format, like [{"action_type": "1", "text": "notice content"}]',
+		},
 		timeoutAndBatchingCollection,
 		{
-			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/im-v1/chat-member/is_in_chat">${WORDING.OpenDocument}</a>`,
+			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/im-v1/chat/top_notice/put_top_notice">${WORDING.OpenDocument}</a>`,
 			name: 'notice',
 			type: 'notice',
 			default: '',
@@ -22,10 +29,14 @@ export default {
 	],
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
 		const chat_id = this.getNodeParameter('chat_id', index) as string;
+		const chat_top_notice = this.getNodeParameter('chat_top_notice', index, []) as IDataObject[];
 
 		const { data } = await RequestUtils.request.call(this, {
-			method: 'GET',
-			url: `/open-apis/im/v1/chats/${chat_id}/members/is_in_chat`,
+			method: 'POST',
+			url: `/open-apis/im/v1/chats/${chat_id}/top_notice/put_top_notice`,
+			body: {
+				chat_top_notice,
+			},
 		});
 
 		return data;

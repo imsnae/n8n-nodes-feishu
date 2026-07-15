@@ -7,7 +7,7 @@ import { OperationType } from '../../../help/type/enums';
 export default {
 	name: WORDING.BatchMessageRecall,
 	value: OperationType.BatchMessageRecall,
-	order: 215,
+	order: 212,
 	options: [
 		{
 			displayName: 'Batch Message ID (批量消息 ID)',

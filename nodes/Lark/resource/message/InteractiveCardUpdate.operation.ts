@@ -9,7 +9,7 @@ import NodeUtils from '../../../help/utils/node';
 export default {
 	name: WORDING.UpdateInteractiveCard,
 	value: OperationType.UpdateInteractiveCard,
-	order: 179,
+	order: 231,
 	options: [
 		DESCRIPTIONS.INTERACTIVE_TOKEN,
 		{
