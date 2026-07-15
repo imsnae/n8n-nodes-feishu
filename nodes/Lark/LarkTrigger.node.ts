@@ -75,7 +75,7 @@ export class LarkTrigger implements INodeType {
 				default: {},
 				options: [
 					{
-						displayName: 'Response Mode',
+						displayName: '响应模式（Response Mode）',
 						name: 'responseMode',
 						type: 'options',
 						default: 'immediately',
@@ -93,13 +93,6 @@ export class LarkTrigger implements INodeType {
 									'Use a Respond to Lark node to send the response. The trigger will wait up to 3000ms for the response.',
 							},
 						],
-					},
-					{
-						displayName:
-							'When using "Using Respond Node" mode, you must add a Respond to Lark node to your workflow to respond to the trigger.',
-						name: 'responseNodeNotice',
-						type: 'notice',
-						default: '',
 					},
 					{
 						displayName: '停用时取消订阅（Unsubscribe on Deactivate）',
@@ -172,7 +165,14 @@ export class LarkTrigger implements INodeType {
 							},
 						],
 					},
-			],
+				],
+			},
+			{
+				displayName:
+					'When using "Using Respond Node" mode, you must add a Respond to Lark node to your workflow to respond to the trigger.',
+				name: 'responseNodeNotice',
+				type: 'notice',
+				default: '',
 			},
 			{
 				displayName:

@@ -29,7 +29,10 @@ export default {
 			type: 'collection',
 			placeholder: WORDING.AddField,
 			default: {},
-			options: [DESCRIPTIONS.PAGE_TOKEN, ...(timeoutAndBatchingCollection.options ?? [])],
+			options: [
+				{ displayName: 'Page Token (分页标记)', name: 'page_token', type: 'string', typeOptions: { password: true }, default: '', description: 'Page token for pagination, leave empty for first page' },
+				...(timeoutAndBatchingCollection.options ?? []),
+			],
 		},
 		{
 			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/im-v1/chat/list">${WORDING.OpenDocument}</a>`,

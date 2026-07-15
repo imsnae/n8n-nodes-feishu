@@ -3,8 +3,7 @@ import RequestUtils from '../../../help/utils/RequestUtils';
 import { ResourceOperation } from '../../../help/type/IResource';
 import { WORDING } from '../../../help/wording';
 import { OperationType } from '../../../help/type/enums';
-import { returnAllAndLimitOptions } from '../../../help/utils/options';
-import { handlePagination } from '../../../help/utils/pagination';
+import { returnAllAndLimitOptions, timeoutAndBatchingCollection } from '../../../help/utils/options';
 
 export default {
 	name: WORDING.MessageSearch,
@@ -28,16 +27,51 @@ export default {
 			default: {},
 			options: [
 				{
-					displayName: 'User ID Type (用户 ID 类型)',
-					name: 'user_id_type',
+					displayName: 'Chat ID List (群聊ID列表)',
+					name: 'chat_id_list',
+					type: 'string',
+					default: '',
+					description: 'Comma-separated chat IDs to search in. Leave empty to search all chats.',
+				},
+				{
+					displayName: 'End Time (结束时间)',
+					name: 'end_time',
+					type: 'string',
+					default: '',
+					description: 'End timestamp in Unix milliseconds',
+				},
+				{
+					displayName: 'From User ID List (发送者ID列表)',
+					name: 'from_user_id_list',
+					type: 'string',
+					default: '',
+					description: 'Comma-separated sender user IDs',
+				},
+				{
+					displayName: 'Sort Type (排序类型)',
+					name: 'sort_type',
 					type: 'options',
 					options: [
-						{ name: 'Open ID', value: 'open_id' },
-						{ name: 'Union ID', value: 'union_id' },
-						{ name: 'User ID', value: 'user_id' },
+						{ name: 'By Create Time Ascending', value: 'ByCreateTimeAsc' },
+						{ name: 'By Create Time Descending', value: 'ByCreateTimeDesc' },
 					],
-					default: 'open_id',
+					default: 'ByCreateTimeDesc',
 				},
+				{
+					displayName: 'Start Time (开始时间)',
+					name: 'start_time',
+					type: 'string',
+					default: '',
+					description: 'Start timestamp in Unix milliseconds',
+				},
+				{
+					displayName: 'To User ID List (接收者ID列表)',
+					name: 'to_user_id_list',
+					type: 'string',
+					default: '',
+					description: 'Comma-separated recipient user IDs',
+				},
+				...(timeoutAndBatchingCollection.options ?? []),
 			],
 		},
 		{
@@ -47,36 +81,78 @@ export default {
 			default: '',
 		},
 	],
-	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
+	async call(this: IExecuteFunctions, index: number): Promise<IDataObject | IDataObject[]> {
 		const query = this.getNodeParameter('query', index) as string;
+		const returnAll = this.getNodeParameter('returnAll', index, false) as boolean;
 		const options = this.getNodeParameter('options', index, {}) as IDataObject;
-		const user_id_type = (options.user_id_type as string) || 'open_id';
 
-		const result = await handlePagination(
-			this,
-			index,
-			async (pageToken?: string) => {
-				const body: IDataObject = { query };
-				const qs: IDataObject = { user_id_type, page_size: 50 };
-				if (pageToken) {
-					qs.page_token = pageToken;
-				}
+		const chat_id_list = (options.chat_id_list as string) || '';
+		const from_user_id_list = (options.from_user_id_list as string) || '';
+		const to_user_id_list = (options.to_user_id_list as string) || '';
+		const start_time = (options.start_time as string) || '';
+		const end_time = (options.end_time as string) || '';
+		const sort_type = (options.sort_type as string) || 'ByCreateTimeDesc';
 
-				const { data } = await RequestUtils.request.call(this, {
-					method: 'POST',
-					url: '/open-apis/im/v1/messages/search',
-					qs,
-					body,
-				});
-				return data as IDataObject;
-			},
-			'items',
-		);
+		const body: IDataObject = { query };
 
-		return {
-			items: result.items,
-			has_more: result.hasMore,
-			page_token: result.pageToken ?? '',
-		};
+		if (chat_id_list) {
+			body.chat_id_list = chat_id_list
+				.split(',')
+				.map((s: string) => s.trim())
+				.filter(Boolean);
+		}
+		if (from_user_id_list) {
+			body.from_user_id_list = from_user_id_list
+				.split(',')
+				.map((s: string) => s.trim())
+				.filter(Boolean);
+		}
+		if (to_user_id_list) {
+			body.to_user_id_list = to_user_id_list
+				.split(',')
+				.map((s: string) => s.trim())
+				.filter(Boolean);
+		}
+		if (start_time) body.start_time = start_time;
+		if (end_time) body.end_time = end_time;
+		if (sort_type) body.sort_type = sort_type;
+
+		if (!returnAll) {
+			const limit = this.getNodeParameter('limit', index, 50) as number;
+			const { data } = await RequestUtils.request.call(this, {
+				method: 'POST',
+				url: '/open-apis/im/v1/messages/search',
+				body,
+				qs: { page_size: limit },
+			});
+			return data;
+		}
+
+		const allItems: IDataObject[] = [];
+		let hasMore = true;
+		let currentPageToken = '';
+
+		do {
+			const { data } = await RequestUtils.request.call(this, {
+				method: 'POST',
+				url: '/open-apis/im/v1/messages/search',
+				body,
+				qs: {
+					page_size: 100,
+					...(currentPageToken && { page_token: currentPageToken }),
+				},
+			});
+
+			const responseData = data as IDataObject;
+			const items = (responseData.items as IDataObject[]) || [];
+			if (items.length > 0) {
+				allItems.push(...items);
+			}
+
+			hasMore = !!responseData.has_more;
+			currentPageToken = (responseData.page_token as string) || '';
+		} while (hasMore);
+
+		return allItems;
 	},
 } as ResourceOperation;
