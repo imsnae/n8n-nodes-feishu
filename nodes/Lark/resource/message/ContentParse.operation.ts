@@ -24,7 +24,7 @@ export default {
 			displayName: 'Message Type (消息类型)',
 			name: 'msg_type',
 			type: 'options',
-			default: '',
+			default: MessageType.Text,
 			required: true,
 			options: [
 				{ name: 'Text (文本)', value: MessageType.Text },
@@ -38,7 +38,6 @@ export default {
 				{ name: 'Todo (任务)', value: MessageType.Todo },
 				{ name: 'Calendar Event (日程)', value: MessageType.CalendarEvent },
 			],
-			default: MessageType.Text,
 			description: 'The type of the message content being parsed',
 		},
 		{
