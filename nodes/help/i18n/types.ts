@@ -170,6 +170,13 @@ export interface IWording {
 	AddField: string;
 	OpenDocument: string;
 
+	// Pagination & Batching
+	ReturnAll: string;
+	Limit: string;
+	Timeout: string;
+	ItemsPerBatch: string;
+	BatchInterval: string;
+
 	// Resource Names
 	ResourceBase: string;
 	ResourceMessage: string;
