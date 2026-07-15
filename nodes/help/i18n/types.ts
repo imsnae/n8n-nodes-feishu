@@ -85,6 +85,21 @@ export interface IWording {
 	GetMessage: string;
 	GetMessageList: string;
 	GetMessageResource: string;
+	MessageSearch: string;
+	ThreadForward: string;
+	MessagePushFollowUp: string;
+	MessageReadUsers: string;
+	MessageUrgent: string;
+	MessageReactionAdd: string;
+	MessageReactionList: string;
+	MessageReactionDelete: string;
+	BatchMessageSend: string;
+	BatchMessageRecall: string;
+	BatchMessageProgress: string;
+	BatchMessageReadUsers: string;
+	MessagePin: string;
+	MessageUnpin: string;
+	MessagePinList: string;
 
 	// Document
 	CreateDocument: string;
@@ -122,7 +137,6 @@ export interface IWording {
 	UserId: string;
 	GetDepartmentChildren: string;
 	GetDepartmentUserList: string;
-	BatchGetUserId: string;
 	SearchDepartment: string;
 	DepartmentId: string;
 	SearchQuery: string;

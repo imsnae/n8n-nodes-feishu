@@ -102,6 +102,21 @@ export declare const enum OperationType {
 	GetMessage = 'getMessage',
 	GetMessageList = 'getMessageList',
 	GetMessageResourceFile = 'getMessageResource',
+	MessageSearch = 'searchMessages',
+	ThreadForward = 'forwardThread',
+	MessagePushFollowUp = 'pushFollowUp',
+	MessageReadUsers = 'getReadUsers',
+	MessageUrgent = 'urgentMessage',
+	MessageReactionAdd = 'addReaction',
+	MessageReactionList = 'getReactionList',
+	MessageReactionDelete = 'deleteReaction',
+	BatchMessageSend = 'sendBatchMessage',
+	BatchMessageRecall = 'recallBatchMessage',
+	BatchMessageProgress = 'getBatchMessageProgress',
+	BatchMessageReadUsers = 'getBatchMessageReadUsers',
+	MessagePin = 'pinMessage',
+	MessageUnpin = 'unpinMessage',
+	MessagePinList = 'getPinList',
 
 	// Document
 	CreateDocument = 'create',
@@ -136,7 +151,6 @@ export declare const enum OperationType {
 	GetUserInfo = 'getUserInfo',
 	GetDepartmentChildren = 'getDepartmentChildren',
 	GetDepartmentUserList = 'getDepartmentUserList',
-	BatchGetUserId = 'batchGetUserId',
 	SearchDepartment = 'searchDepartment',
 
 	// Spreadsheet

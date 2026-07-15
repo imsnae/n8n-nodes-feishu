@@ -4,12 +4,12 @@ import { OperationType } from '../../../help/type/enums';
 import RequestUtils from '../../../help/utils/RequestUtils';
 
 export default {
-	name: 'Delete Task | 删除任务',
+	name: '删除任务（Delete Task）',
 	value: OperationType.DeleteTask,
 	order: 100,
 	options: [
 		{
-			displayName: 'Task ID(任务ID)',
+			displayName: '任务ID（Task ID）',
 			name: 'task_guid',
 			type: 'string',
 			required: true,

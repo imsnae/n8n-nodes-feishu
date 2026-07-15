@@ -4,19 +4,19 @@ import { OperationType } from '../../../help/type/enums';
 import RequestUtils from '../../../help/utils/RequestUtils';
 
 export default {
-	name: 'Get Task Info | 获取任务详情',
+	name: '获取任务详情（Get Task Info）',
 	value: OperationType.GetTaskInfo,
 	order: 100,
 	options: [
 		{
-			displayName: 'Task ID(任务ID)',
+			displayName: '任务ID（Task ID）',
 			name: 'task_guid',
 			type: 'string',
 			required: true,
 			default: '',
 		},
 		{
-			displayName: 'User ID Type(用户 ID 类型)',
+			displayName: '用户 ID 类型（User ID Type）',
 			name: 'user_id_type',
 			type: 'options',
 			options: [

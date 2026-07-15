@@ -5,19 +5,19 @@ import NodeUtils from '../../../help/utils/node';
 import RequestUtils from '../../../help/utils/RequestUtils';
 
 export default {
-	name: 'Update Task | 更新任务',
+	name: '更新任务（Update Task）',
 	value: OperationType.UpdateTask,
 	order: 100,
 	options: [
 		{
-			displayName: 'Task ID(任务ID)',
+			displayName: '任务ID（Task ID）',
 			name: 'task_guid',
 			type: 'string',
 			required: true,
 			default: '',
 		},
 		{
-			displayName: 'User ID Type(用户 ID 类型)',
+			displayName: '用户 ID 类型（User ID Type）',
 			name: 'user_id_type',
 			type: 'options',
 			options: [
@@ -28,7 +28,7 @@ export default {
 			default: 'open_id',
 		},
 		{
-			displayName: 'Request Body(请求体)',
+			displayName: '请求体（Request Body）',
 			name: 'body',
 			type: 'json',
 			required: true,

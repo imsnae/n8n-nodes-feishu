@@ -75,14 +75,6 @@ export class LarkTrigger implements INodeType {
 				default: {},
 				options: [
 					{
-						displayName: 'Callback Toast | 回调提示',
-						name: 'callbackToast',
-						type: 'string',
-						default: '',
-						description:
-							'Set the toast message displayed to users when the callback is triggered. If not set, no toast will be shown.',
-					},
-					{
 						displayName: 'Response Mode',
 						name: 'responseMode',
 						type: 'options',
@@ -103,7 +95,29 @@ export class LarkTrigger implements INodeType {
 						],
 					},
 					{
-						displayName: 'Subscription Docs Event(订阅云文档事件)',
+						displayName:
+							'When using "Using Respond Node" mode, you must add a Respond to Lark node to your workflow to respond to the trigger.',
+						name: 'responseNodeNotice',
+						type: 'notice',
+						default: '',
+					},
+					{
+						displayName: '停用时取消订阅（Unsubscribe on Deactivate）',
+						name: 'unsubscribeOnDeactivate',
+						type: 'boolean',
+						default: false,
+						description: 'Whether to unsubscribe the events on deactivation',
+					},
+					{
+						displayName: '回调提示（Callback Toast）',
+						name: 'callbackToast',
+						type: 'string',
+						default: '',
+						description:
+							'Set the toast message displayed to users when the callback is triggered. If not set, no toast will be shown.',
+					},
+					{
+						displayName: '订阅云文档事件（Subscription Docs Event）',
 						name: 'subscriptionEventsUi',
 						placeholder: 'Add New Subscription',
 						type: 'fixedCollection',
@@ -117,36 +131,36 @@ export class LarkTrigger implements INodeType {
 								displayName: 'New Subscription',
 								values: [
 									{
-										displayName: 'File Type(文件类型)',
+										displayName: '文件类型（File Type）',
 										name: 'type',
 										type: 'options',
 										required: true,
 										default: 'bitable',
 										options: [
 											{
-												name: 'Bitable(多维表格)',
+												name: '多维表格（Bitable）',
 												value: FileType.Bitable,
 											},
 											{
-												name: 'Docx(新版文档类型)',
+												name: '新版文档类型（Docx）',
 												value: FileType.Docx,
 											},
 											{
-												name: 'Folder(文件夹)',
+												name: '文件夹（Folder）',
 												value: FileType.Folder,
 											},
 											{
-												name: 'File(文件)',
+												name: '文件（File）',
 												value: FileType.File,
 											},
 											{
-												name: 'Slides(幻灯片)',
+												name: '幻灯片（Slides）',
 												value: FileType.Slides,
 											},
 										],
 									},
 									{
-										displayName: 'File Token(文件唯一标识)',
+										displayName: '文件唯一标识（File Token）',
 										name: 'fileId',
 										required: true,
 										type: 'string',
@@ -158,26 +172,7 @@ export class LarkTrigger implements INodeType {
 							},
 						],
 					},
-					{
-						displayName: 'Unsubscribe on Deactivate | 停用时取消订阅',
-						name: 'unsubscribeOnDeactivate',
-						type: 'boolean',
-						default: false,
-						description: 'Whether to unsubscribe the events on deactivation',
-					},
-					{
-						displayName:
-							'When using "Using Respond Node" mode, you must add a Respond to Lark node to your workflow to respond to the trigger.',
-						name: 'responseNodeNotice',
-						type: 'notice',
-						default: '',
-						displayOptions: {
-							show: {
-								responseMode: ['responseNode'],
-							},
-						},
-					},
-				],
+			],
 			},
 			{
 				displayName:

@@ -16,19 +16,19 @@ const REQUEST_BODY = {
 };
 
 export default {
-	name: 'Remove Members | 移除任务成员',
+	name: '移除任务成员（Remove Members）',
 	value: OperationType.RemoveTaskMembers,
 	order: 90,
 	options: [
 		{
-			displayName: 'Task ID(任务ID)',
+			displayName: '任务ID（Task ID）',
 			name: 'task_guid',
 			type: 'string',
 			required: true,
 			default: '',
 		},
 		{
-			displayName: 'User ID Type(用户 ID 类型)',
+			displayName: '用户 ID 类型（User ID Type）',
 			name: 'user_id_type',
 			type: 'options',
 			options: [
@@ -39,7 +39,7 @@ export default {
 			default: 'open_id',
 		},
 		{
-			displayName: 'Members(成员)',
+			displayName: '成员（Members）',
 			name: 'body',
 			type: 'json',
 			required: true,

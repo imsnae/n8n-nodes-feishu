@@ -14,19 +14,19 @@ const REQUEST_BODY = [
 ];
 
 export default {
-	name: 'Add Members | 添加任务成员',
+	name: '添加任务成员（Add Members）',
 	value: OperationType.AddTaskMembers,
 	order: 90,
 	options: [
 		{
-			displayName: 'Task ID(任务ID)',
+			displayName: '任务ID（Task ID）',
 			name: 'task_guid',
 			type: 'string',
 			required: true,
 			default: '',
 		},
 		{
-			displayName: 'User ID Type(用户 ID 类型)',
+			displayName: '用户 ID 类型（User ID Type）',
 			name: 'user_id_type',
 			type: 'options',
 			options: [
@@ -37,7 +37,7 @@ export default {
 			default: 'open_id',
 		},
 		{
-			displayName: 'Client Token(幂等Token)',
+			displayName: '幂等Token（Client Token）',
 			name: 'client_token',
 			type: 'string',
 			typeOptions: { password: true },
@@ -45,7 +45,7 @@ export default {
 			description: 'Idempotent token',
 		},
 		{
-			displayName: 'Members(成员)',
+			displayName: '成员（Members）',
 			name: 'members',
 			type: 'json',
 			required: true,
