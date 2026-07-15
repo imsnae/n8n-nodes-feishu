@@ -159,6 +159,13 @@ export const WORDING_EN: IWording = {
 	AddField: 'Add Field',
 	OpenDocument: 'Open official document',
 
+	// Pagination & Batching
+	ReturnAll: 'Return All',
+	Limit: 'Limit',
+	Timeout: 'Timeout (ms)',
+	ItemsPerBatch: 'Items per Batch',
+	BatchInterval: 'Batch Interval (ms)',
+
 	// Resource Names
 	ResourceBase: 'Base',
 	ResourceMessage: 'Message',

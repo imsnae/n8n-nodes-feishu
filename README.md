@@ -1,8 +1,8 @@
-[English](./README-EN.md)
-
 # n8n-nodes-feishu
 
 n8n 社区节点，用于与飞书/Lark API 交互，支持消息发送、文档操作、日历管理、多维表格等功能。
+
+> **v2.1.0 新增**: Lark Webhook Trigger（HTTP Webhook 触发器）、Respond to Lark（同步响应节点）
 
 本项目 fork 自 [n8n-nodes-feishu-lark](https://github.com/zhgqthomas/n8n-nodes-feishu-lark)，并进行了以下改进：
 - 适配最新 n8n 版本 (v2.x)
@@ -36,8 +36,13 @@ npm install @snae/n8n-nodes-feishu
 
 ### 触发器
 
-- **Lark Trigger**: 通过 WebSocket 接收飞书事件推送（仅支持中国版飞书）
+- **Lark Trigger**: 通过 WebSocket 长连接接收飞书事件推送（仅支持中国版飞书）
+- **Lark Webhook Trigger** ✨ 新增: 通过 HTTP Webhook 接收事件回调，支持加密推送解密、URL 验证
 - **Webhook**: 通过 n8n Webhook 节点接收事件（支持国际版 Lark）
+
+### 响应节点
+
+- **Respond to Lark** ✨ 新增: 同步响应飞书卡片交互，支持 WebSocket 和 Webhook 两种模式
 
 ### 特殊操作
 

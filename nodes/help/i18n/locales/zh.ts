@@ -159,6 +159,13 @@ export const WORDING_ZH: IWording = {
 	AddField: '添加字段',
 	OpenDocument: '浏览官方文档',
 
+	// Pagination & Batching
+	ReturnAll: '返回全部',
+	Limit: '限制数量',
+	Timeout: '超时时间（毫秒）',
+	ItemsPerBatch: '每批次项目数',
+	BatchInterval: '批次间隔（毫秒）',
+
 	// Resource Names
 	ResourceBase: '多维表格',
 	ResourceMessage: '消息',
