@@ -24,8 +24,8 @@ export default {
 			displayName: 'Message Type (消息类型)',
 			name: 'msg_type',
 			type: 'options',
-			default: MessageType.Text,
 			required: true,
+			default: 'text',
 			options: [
 				{ name: 'Text (文本)', value: MessageType.Text },
 				{ name: 'Rich Text / Post (富文本)', value: MessageType.RichText },
