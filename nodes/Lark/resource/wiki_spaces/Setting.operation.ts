@@ -1,10 +1,11 @@
 import { IDataObject, IExecuteFunctions } from 'n8n-workflow';
 import RequestUtils from '../../../help/utils/RequestUtils';
 import { ResourceOperation } from '../../../help/type/IResource';
+import { OperationType } from '../../../help/type/enums';
 
 export default {
 	name: '更新知识空间设置',
-	value: 'updateSpaceSettings',
+	value: OperationType.UpdateWikiSpaceSettings,
 	order: 98,
 	options: [
 		{

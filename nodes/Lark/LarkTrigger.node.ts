@@ -7,7 +7,11 @@ import type {
 	IDataObject,
 	IExecuteFunctions,
 } from 'n8n-workflow';
-import { NodeConnectionTypes, NodeOperationError } from 'n8n-workflow';
+import {
+	NodeConnectionTypes,
+	NodeOperationError,
+	type IExecuteResponsePromiseData,
+} from 'n8n-workflow';
 import { Credentials, FileType } from '../help/type/enums';
 import { WSClient } from '../lark-sdk/ws-client';
 import { EventDispatcher } from '../lark-sdk/handler/event-handler';
@@ -70,6 +74,34 @@ export class LarkTrigger implements INodeType {
 				placeholder: WORDING.AddField,
 				default: {},
 				options: [
+					{
+						displayName: 'Callback Toast | 回调提示',
+						name: 'callbackToast',
+						type: 'string',
+						default: '',
+						description:
+							'Set the toast message displayed to users when the callback is triggered. If not set, no toast will be shown.',
+					},
+					{
+						displayName: 'Response Mode',
+						name: 'responseMode',
+						type: 'options',
+						default: 'immediately',
+						options: [
+							{
+								name: 'Immediately',
+								value: 'immediately',
+								description:
+									'Returns a response immediately when the event is received (callbackToast can still be used)',
+							},
+							{
+								name: 'Using Respond Node',
+								value: 'responseNode',
+								description:
+									'Use a Respond to Lark node to send the response. The trigger will wait up to 3000ms for the response.',
+							},
+						],
+					},
 					{
 						displayName: 'Subscription Docs Event(订阅云文档事件)',
 						name: 'subscriptionEventsUi',
@@ -134,12 +166,16 @@ export class LarkTrigger implements INodeType {
 						description: 'Whether to unsubscribe the events on deactivation',
 					},
 					{
-						displayName: 'Callback Toast | 回调提示',
-						name: 'callbackToast',
-						type: 'string',
+						displayName:
+							'When using "Using Respond Node" mode, you must add a Respond to Lark node to your workflow to respond to the trigger.',
+						name: 'responseNodeNotice',
+						type: 'notice',
 						default: '',
-						description:
-							'Set the toast message displayed to users when the callback is triggered. If not set, no toast will be shown.',
+						displayOptions: {
+							show: {
+								responseMode: ['responseNode'],
+							},
+						},
 					},
 				],
 			},
@@ -171,6 +207,7 @@ export class LarkTrigger implements INodeType {
 
 		const options = this.getNodeParameter('options', {}) as IDataObject;
 		const callbackToast = (options.callbackToast as string) || undefined;
+		const responseMode = (options.responseMode as string) || 'immediately';
 
 		const handleSubscribeEvents = async (cmd: 'subscribe' | 'delete_subscribe') => {
 			const unsubscribeOnDeactivate = (options.unsubscribeOnDeactivate as boolean) || false;
@@ -224,6 +261,28 @@ export class LarkTrigger implements INodeType {
 
 			for (const event of events) {
 				handlers[event] = async (data) => {
+					const isCardAction = event === 'card.action.trigger';
+
+					if (responseMode === 'responseNode' && isCardAction) {
+						const responsePromise =
+							this.helpers.createDeferredPromise<IExecuteResponsePromiseData>();
+						this.emit([this.helpers.returnJsonArray(data)], responsePromise);
+						try {
+							const response = await Promise.race([
+								responsePromise.promise,
+								new Promise<never>((_, reject) =>
+									setTimeout(
+										() => reject(new Error('Response timeout (3000ms)')),
+										3000,
+									),
+								),
+							]);
+							return (response as IDataObject) ?? {};
+						} catch {
+							return {};
+						}
+					}
+
 					let donePromise = undefined;
 
 					donePromise = this.helpers.createDeferredPromise<IRun>();

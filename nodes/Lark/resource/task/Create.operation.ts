@@ -1,11 +1,12 @@
 import { IDataObject, IExecuteFunctions } from 'n8n-workflow';
 import { ResourceOperation } from '../../../help/type/IResource';
+import { OperationType } from '../../../help/type/enums';
 import NodeUtils from '../../../help/utils/node';
 import RequestUtils from '../../../help/utils/RequestUtils';
 
 export default {
 	name: 'Create Task | 创建任务',
-	value: 'create',
+	value: OperationType.CreateTask,
 	order: 100,
 	options: [
 		{

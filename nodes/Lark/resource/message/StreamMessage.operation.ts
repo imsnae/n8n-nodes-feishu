@@ -25,7 +25,7 @@ export default {
 	options: [
 		{
 			displayName:
-				'Tip: Get a feel with the quick <a href="https://github.com/zhgqthomas/n8n-nodes-feishu-lark/blob/main/README.md#send-streaming-message" target="_blank">tutorial</a> or see an <a href="https://github.com/zhgqthomas/n8n-nodes-feishu-lark/blob/main/demo/send_streaming_message.json" target="_blank">example</a> of how this node works',
+				'Tip: See the <a href="https://open.feishu.cn/document/server-docs/im-v1/message/streaming-message" target="_blank">Feishu official streaming message docs</a> for more information',
 			name: 'streamMessageStarterCallout',
 			type: 'callout',
 			default: '',

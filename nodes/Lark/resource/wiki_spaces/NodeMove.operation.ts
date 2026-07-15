@@ -1,10 +1,11 @@
 import { IDataObject, IExecuteFunctions } from 'n8n-workflow';
 import RequestUtils from '../../../help/utils/RequestUtils';
 import { ResourceOperation } from '../../../help/type/IResource';
+import { OperationType } from '../../../help/type/enums';
 
 export default {
 	name: '移动知识空间节点',
-	value: 'moveSpaceNode',
+	value: OperationType.MoveWikiSpaceNode,
 	order: 90,
 	options: [
 		{

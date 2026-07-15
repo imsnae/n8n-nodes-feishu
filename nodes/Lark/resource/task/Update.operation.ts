@@ -1,11 +1,12 @@
 import { IDataObject, IExecuteFunctions } from 'n8n-workflow';
 import { ResourceOperation } from '../../../help/type/IResource';
+import { OperationType } from '../../../help/type/enums';
 import NodeUtils from '../../../help/utils/node';
 import RequestUtils from '../../../help/utils/RequestUtils';
 
 export default {
 	name: 'Update Task | 更新任务',
-	value: 'update',
+	value: OperationType.UpdateTask,
 	order: 100,
 	options: [
 		{

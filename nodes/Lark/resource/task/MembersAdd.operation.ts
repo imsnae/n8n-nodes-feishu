@@ -1,5 +1,6 @@
 import { IDataObject, IExecuteFunctions } from 'n8n-workflow';
 import { ResourceOperation } from '../../../help/type/IResource';
+import { OperationType } from '../../../help/type/enums';
 import NodeUtils from '../../../help/utils/node';
 import RequestUtils from '../../../help/utils/RequestUtils';
 
@@ -14,7 +15,7 @@ const REQUEST_BODY = [
 
 export default {
 	name: 'Add Members | 添加任务成员',
-	value: 'addMembers',
+	value: OperationType.AddTaskMembers,
 	order: 90,
 	options: [
 		{

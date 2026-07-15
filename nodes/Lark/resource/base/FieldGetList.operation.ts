@@ -4,6 +4,9 @@ import { ResourceOperation } from '../../../help/type/IResource';
 import { WORDING } from '../../../help/wording';
 import { OperationType } from '../../../help/type/enums';
 import { DESCRIPTIONS } from '../../../help/description';
+import {
+	returnAllAndLimitOptions,
+} from '../../../help/utils/options';
 
 export default {
 	name: WORDING.GetTableFieldList,
@@ -13,16 +16,28 @@ export default {
 		DESCRIPTIONS.BASE_APP_TOKEN,
 		DESCRIPTIONS.BASE_TABLE_ID,
 		DESCRIPTIONS.TABLE_VIEW_ID,
-		DESCRIPTIONS.WHETHER_PAGING,
-		DESCRIPTIONS.PAGE_TOKEN,
-		DESCRIPTIONS.PAGE_SIZE,
 		{
 			displayName: WORDING.Options,
 			name: 'options',
 			type: 'collection',
 			placeholder: WORDING.AddField,
 			default: {},
-			options: [DESCRIPTIONS.TEXT_FIELD_AS_ARRAY],
+			options: [
+				...returnAllAndLimitOptions,
+				DESCRIPTIONS.TEXT_FIELD_AS_ARRAY,
+			],
+		},
+		{
+			displayName: WORDING.Options,
+			name: 'paginationOptions',
+			type: 'collection',
+			placeholder: WORDING.AddField,
+			default: {},
+			options: [
+				DESCRIPTIONS.WHETHER_PAGING,
+				DESCRIPTIONS.PAGE_TOKEN,
+				DESCRIPTIONS.PAGE_SIZE,
+			],
 		},
 		{
 			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-field/list">${WORDING.OpenDocument}</a>`,
@@ -41,11 +56,14 @@ export default {
 		const view_id = this.getNodeParameter('view_id', index, undefined, {
 			extractValue: true,
 		}) as string;
-		const whetherPaging = this.getNodeParameter('whether_paging', index, false) as boolean;
-		let pageToken = this.getNodeParameter('page_token', index, '') as string;
-		const pageSize = this.getNodeParameter('page_size', index, 100) as number;
 		const options = this.getNodeParameter('options', index, {}) as IDataObject;
-		const text_field_as_array = options.text_field_as_array as boolean || false;
+		const paginationOptions = this.getNodeParameter('paginationOptions', index, {}) as IDataObject;
+		const whetherPaging = (paginationOptions.whether_paging as boolean) || false;
+		let pageToken = (paginationOptions.page_token as string) || '';
+		const pageSize = (paginationOptions.page_size as number) || 100;
+		const returnAll = (options.returnAll as boolean) || false;
+		const limit = (options.limit as number) || 100;
+		const text_field_as_array = (options.text_field_as_array as boolean) || false;
 
 		const allFields: IDataObject[] = [];
 		let hasMore = false;
@@ -68,7 +86,13 @@ export default {
 			if (items) {
 				allFields.push(...items);
 			}
-		} while (!whetherPaging && hasMore);
+
+			if (!returnAll && allFields.length >= limit) {
+				hasMore = false;
+				allFields.length = limit;
+				break;
+			}
+		} while ((returnAll || !whetherPaging) && hasMore);
 
 		return {
 			has_more: hasMore,

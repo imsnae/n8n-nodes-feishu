@@ -1,10 +1,11 @@
 import { IDataObject, IExecuteFunctions } from 'n8n-workflow';
 import RequestUtils from '../../../help/utils/RequestUtils';
 import { ResourceOperation } from '../../../help/type/IResource';
+import { OperationType } from '../../../help/type/enums';
 
 export default {
 	name: '获取知识空间信息',
-	value: 'getSpaceInfo',
+	value: OperationType.GetWikiSpaceInfo,
 	order: 100,
 	options: [
 		{

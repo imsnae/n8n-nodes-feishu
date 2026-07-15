@@ -71,6 +71,9 @@ export const WORDING_EN: IWording = {
 	ParseWebhookMessage: 'Parse Webhook Message',
 	SendStreamMessage: 'Send Stream Message',
 	UpdateInteractiveCard: 'Update Interactive Card',
+	GetMessage: 'Get Message (获取指定消息)',
+	GetMessageList: 'Get Message List (获取消息列表)',
+	GetMessageResource: 'Get Message Resource (获取消息资源)',
 
 	// Document
 	CreateDocument: 'Create',
@@ -95,6 +98,10 @@ export const WORDING_EN: IWording = {
 	UploadMedia: 'Upload Media',
 	DownloadMedia: 'Download Media',
 	GetMediaTempDownloadLink: 'Get Media Temp Download Link',
+	GetFileStatistics: 'Get File Statistics (获取文件统计信息)',
+	ImportFile: 'Import File (导入文件)',
+	ExportFile: 'Export File (导出文件)',
+	GetFileViewRecords: 'Get File View Records (获取文件查看记录)',
 
 	// Contact
 	BatchGetUserInfo: 'Batch Get User Info',
@@ -102,6 +109,12 @@ export const WORDING_EN: IWording = {
 	PhoneNumbers: 'Phone Numbers',
 	GetUserInfo: 'Get User Info',
 	UserId: 'User ID',
+	GetDepartmentChildren: 'Get Department Children',
+	GetDepartmentUserList: 'Get Department User List',
+	BatchGetUserId: 'Batch Get User ID (by Email/Mobile)',
+	SearchDepartment: 'Search Department',
+	DepartmentId: 'Department ID',
+	SearchQuery: 'Search Query',
 
 	// Spreadsheet
 	CreateSpreadsheet: 'Create',
@@ -154,6 +167,20 @@ export const WORDING_EN: IWording = {
 	GetToolList: 'List Tools',
 	ExecuteTool: 'Execute Tool',
 
+	// Chat
+	CreateChat: 'Create Chat (创建群聊)',
+	UpdateChat: 'Update Chat (更新群聊)',
+	DeleteChat: 'Delete Chat (删除群聊)',
+	GetChatInfo: 'Get Chat Info (获取群聊信息)',
+	GetChatList: 'Get Chat List (获取群聊列表)',
+	SearchChat: 'Search Chat (搜索群聊)',
+	AddChatMembers: 'Add Members (添加成员)',
+	RemoveChatMembers: 'Remove Members (移除成员)',
+	GetChatMembers: 'Get Members (获取成员列表)',
+	AddChatManagers: 'Add Managers (添加管理员)',
+	RemoveChatManagers: 'Remove Managers (移除管理员)',
+	IsInChat: 'Is In Chat (是否在群中)',
+
 	// Common
 	Options: 'Options',
 	AddField: 'Add Field',
@@ -168,6 +195,7 @@ export const WORDING_EN: IWording = {
 
 	// Resource Names
 	ResourceBase: 'Base',
+	ResourceChat: 'Chat',
 	ResourceMessage: 'Message',
 	ResourceDocument: 'Document',
 	ResourceSpace: 'Space',

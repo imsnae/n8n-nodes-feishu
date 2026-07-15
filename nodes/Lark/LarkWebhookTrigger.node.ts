@@ -46,7 +46,7 @@ export class LarkWebhookTrigger implements INodeType {
 		properties: [
 			{
 				displayName:
-					'Configure the webhook URL in the Feishu open platform. Copy the Webhook URL from this node and paste it into the event subscription URL field in your Feishu app settings.',
+					'Configure the Webhook URL below in the Feishu open platform "Event Subscription" settings. | 将下方 Webhook URL 配置到飞书开放平台「事件与回调」中',
 				name: 'webhookNotice',
 				type: 'notice',
 				default: '',

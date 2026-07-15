@@ -1,10 +1,11 @@
 import { IDataObject, IExecuteFunctions } from 'n8n-workflow';
 import RequestUtils from '../../../help/utils/RequestUtils';
 import { ResourceOperation } from '../../../help/type/IResource';
+import { OperationType } from '../../../help/type/enums';
 
 export default {
 	name: '创建知识空间节点副本',
-	value: 'copySpaceNode',
+	value: OperationType.CopyWikiSpaceNode,
 	order: 90,
 	options: [
 		{

@@ -4,6 +4,9 @@ import { ResourceOperation } from '../../../help/type/IResource';
 import { WORDING } from '../../../help/wording';
 import { OperationType } from '../../../help/type/enums';
 import { DESCRIPTIONS } from '../../../help/description';
+import {
+	returnAllAndLimitOptions,
+} from '../../../help/utils/options';
 
 export default {
 	name: WORDING.GetTableViewList,
@@ -12,16 +15,28 @@ export default {
 	options: [
 		DESCRIPTIONS.BASE_APP_TOKEN,
 		DESCRIPTIONS.BASE_TABLE_ID,
-		DESCRIPTIONS.WHETHER_PAGING,
-		DESCRIPTIONS.PAGE_TOKEN,
-		DESCRIPTIONS.PAGE_SIZE,
 		{
 			displayName: WORDING.Options,
 			name: 'options',
 			type: 'collection',
 			placeholder: WORDING.AddField,
 			default: {},
-			options: [DESCRIPTIONS.USER_ID_TYPE],
+			options: [
+				...returnAllAndLimitOptions,
+				DESCRIPTIONS.USER_ID_TYPE,
+			],
+		},
+		{
+			displayName: WORDING.Options,
+			name: 'paginationOptions',
+			type: 'collection',
+			placeholder: WORDING.AddField,
+			default: {},
+			options: [
+				DESCRIPTIONS.WHETHER_PAGING,
+				DESCRIPTIONS.PAGE_TOKEN,
+				DESCRIPTIONS.PAGE_SIZE,
+			],
 		},
 		{
 			displayName: `<a target="_blank" href="https://open.feishu.cn/document/server-docs/docs/bitable-v1/app-table-view/list">${WORDING.OpenDocument}</a>`,
@@ -37,11 +52,14 @@ export default {
 		const table_id = this.getNodeParameter('table_id', index, undefined, {
 			extractValue: true,
 		}) as string;
-		const whetherPaging = this.getNodeParameter('whether_paging', index, false) as boolean;
-		const pageSize = this.getNodeParameter('page_size', index, 100) as string;
-		let pageToken = this.getNodeParameter('page_token', index, '') as string;
-		const options = this.getNodeParameter('options', index, {});
-		const user_id_type = options.user_id_type as string || 'open_id';
+		const options = this.getNodeParameter('options', index, {}) as IDataObject;
+		const paginationOptions = this.getNodeParameter('paginationOptions', index, {}) as IDataObject;
+		const whetherPaging = (paginationOptions.whether_paging as boolean) || false;
+		const pageSize = (paginationOptions.page_size as number) || 100;
+		let pageToken = (paginationOptions.page_token as string) || '';
+		const returnAll = (options.returnAll as boolean) || false;
+		const limit = (options.limit as number) || 100;
+		const user_id_type = (options.user_id_type as string) || 'open_id';
 
 		const allViews: IDataObject[] = [];
 		let hasMore = false;
@@ -69,7 +87,13 @@ export default {
 			if (items) {
 				allViews.push(...items);
 			}
-		} while (!whetherPaging && hasMore);
+
+			if (!returnAll && allViews.length >= limit) {
+				hasMore = false;
+				allViews.length = limit;
+				break;
+			}
+		} while ((returnAll || !whetherPaging) && hasMore);
 
 		return {
 			has_more: hasMore,

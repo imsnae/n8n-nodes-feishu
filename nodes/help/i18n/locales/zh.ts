@@ -71,6 +71,9 @@ export const WORDING_ZH: IWording = {
 	ParseWebhookMessage: '解析 Webhook 消息',
 	SendStreamMessage: '发送流式消息',
 	UpdateInteractiveCard: '延时更新消息卡片',
+	GetMessage: '获取指定消息',
+	GetMessageList: '获取消息列表',
+	GetMessageResource: '获取消息资源',
 
 	// Document
 	CreateDocument: '创建文档',
@@ -95,6 +98,10 @@ export const WORDING_ZH: IWording = {
 	UploadMedia: '上传素材',
 	DownloadMedia: '下载素材',
 	GetMediaTempDownloadLink: '获取素材临时下载链接',
+	GetFileStatistics: '获取文件统计信息',
+	ImportFile: '导入文件',
+	ExportFile: '导出文件',
+	GetFileViewRecords: '获取文件查看记录',
 
 	// Contact
 	BatchGetUserInfo: '批量获取用户信息',
@@ -102,6 +109,12 @@ export const WORDING_ZH: IWording = {
 	PhoneNumbers: '用户手机号列表',
 	GetUserInfo: '获取用户信息',
 	UserId: '用户ID',
+	GetDepartmentChildren: '获取子部门列表',
+	GetDepartmentUserList: '获取部门用户列表',
+	BatchGetUserId: '批量获取用户ID（通过邮箱/手机号）',
+	SearchDepartment: '搜索部门',
+	DepartmentId: '部门ID',
+	SearchQuery: '搜索关键词',
 
 	// Spreadsheet
 	CreateSpreadsheet: '创建电子表格',
@@ -154,6 +167,20 @@ export const WORDING_ZH: IWording = {
 	GetToolList: '获取工具列表',
 	ExecuteTool: '执行工具',
 
+	// Chat
+	CreateChat: '创建群聊',
+	UpdateChat: '更新群聊信息',
+	DeleteChat: '删除群聊',
+	GetChatInfo: '获取群聊信息',
+	GetChatList: '获取群聊列表',
+	SearchChat: '搜索群聊',
+	AddChatMembers: '添加群成员',
+	RemoveChatMembers: '移除群成员',
+	GetChatMembers: '获取群成员列表',
+	AddChatManagers: '添加群管理员',
+	RemoveChatManagers: '移除群管理员',
+	IsInChat: '用户是否在群中',
+
 	// Common
 	Options: '选项',
 	AddField: '添加字段',
@@ -168,6 +195,7 @@ export const WORDING_ZH: IWording = {
 
 	// Resource Names
 	ResourceBase: '多维表格',
+	ResourceChat: '群组管理',
 	ResourceMessage: '消息',
 	ResourceDocument: '文档',
 	ResourceSpace: '云空间',

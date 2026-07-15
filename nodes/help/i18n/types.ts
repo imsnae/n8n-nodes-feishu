@@ -82,6 +82,9 @@ export interface IWording {
 	ParseWebhookMessage: string;
 	SendStreamMessage: string;
 	UpdateInteractiveCard: string;
+	GetMessage: string;
+	GetMessageList: string;
+	GetMessageResource: string;
 
 	// Document
 	CreateDocument: string;
@@ -106,6 +109,10 @@ export interface IWording {
 	UploadMedia: string;
 	DownloadMedia: string;
 	GetMediaTempDownloadLink: string;
+	GetFileStatistics: string;
+	ImportFile: string;
+	ExportFile: string;
+	GetFileViewRecords: string;
 
 	// Contact
 	BatchGetUserInfo: string;
@@ -113,6 +120,12 @@ export interface IWording {
 	PhoneNumbers: string;
 	GetUserInfo: string;
 	UserId: string;
+	GetDepartmentChildren: string;
+	GetDepartmentUserList: string;
+	BatchGetUserId: string;
+	SearchDepartment: string;
+	DepartmentId: string;
+	SearchQuery: string;
 
 	// Spreadsheet
 	CreateSpreadsheet: string;
@@ -165,6 +178,20 @@ export interface IWording {
 	GetToolList: string;
 	ExecuteTool: string;
 
+	// Chat
+	CreateChat: string;
+	UpdateChat: string;
+	DeleteChat: string;
+	GetChatInfo: string;
+	GetChatList: string;
+	SearchChat: string;
+	AddChatMembers: string;
+	RemoveChatMembers: string;
+	GetChatMembers: string;
+	AddChatManagers: string;
+	RemoveChatManagers: string;
+	IsInChat: string;
+
 	// Common
 	Options: string;
 	AddField: string;
@@ -179,6 +206,7 @@ export interface IWording {
 
 	// Resource Names
 	ResourceBase: string;
+	ResourceChat: string;
 	ResourceMessage: string;
 	ResourceDocument: string;
 	ResourceSpace: string;

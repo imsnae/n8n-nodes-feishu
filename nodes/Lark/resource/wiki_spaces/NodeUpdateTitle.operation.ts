@@ -1,10 +1,11 @@
 import { IDataObject, IExecuteFunctions } from 'n8n-workflow';
 import RequestUtils from '../../../help/utils/RequestUtils';
 import { ResourceOperation } from '../../../help/type/IResource';
+import { OperationType } from '../../../help/type/enums';
 
 export default {
 	name: '更新知识空间节点标题',
-	value: 'updateSpaceNodeTitle',
+	value: OperationType.UpdateWikiSpaceNodeTitle,
 	order: 90,
 	options: [
 		{

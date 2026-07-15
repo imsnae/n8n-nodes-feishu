@@ -6,6 +6,9 @@ import { WORDING } from '../../../help/wording';
 import { OperationType } from '../../../help/type/enums';
 import NodeUtils from '../../../help/utils/node';
 import { isString } from '../../../help/utils/validation';
+import {
+	returnAllAndLimitOptions,
+} from '../../../help/utils/options';
 
 export default {
 	name: WORDING.GetTableRecordList,
@@ -22,6 +25,7 @@ export default {
 			placeholder: WORDING.AddField,
 			default: {},
 			options: [
+				...returnAllAndLimitOptions,
 				DESCRIPTIONS.USER_ID_TYPE,
 				DESCRIPTIONS.WITH_SHARED_URL,
 				DESCRIPTIONS.AUTOMATIC_FIELDS,

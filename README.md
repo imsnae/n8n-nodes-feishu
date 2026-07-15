@@ -10,6 +10,8 @@ n8n 社区节点，用于与飞书/Lark API 交互，支持消息发送、文档
 - 添加 npm provenance 支持
 - 修复代码质量问题
 
+> 部分功能（Webhook Trigger、Respond 节点、自动分页、超时批次管理）参考自 [luka-n8n-nodes/n8n-nodes-feishu](https://github.com/luka-n8n-nodes/n8n-nodes-feishu)
+
 ## 安装
 
 在 n8n 中安装此节点：
@@ -24,20 +26,21 @@ npm install @snae/n8n-nodes-feishu
 
 ### 支持的资源
 
-- **消息 (Message)**: 发送、回复、编辑、转发、撤回消息，上传/下载文件
-- **多维表格 (Base/Bitable)**: 创建/更新/删除应用、表格、记录、字段、视图
-- **日历 (Calendar)**: 创建/管理日历和日程事件
+- **消息 (Message)**: 发送、回复、编辑、转发、撤回消息；查询消息内容与历史记录；上传/下载文件、图片、音频、视频等资源
+- **群组 (Chat/Group)**: 创建/更新/删除群聊、搜索群组、添加/移除/查询成员、管理群主
+- **多维表格 (Base/Bitable)**: 创建/更新/删除应用、表格、记录、字段、视图；批量操作
+- **日历 (Calendar)**: 创建/管理日历和日程事件；管理日程参与人；日历搜索与空闲查询
 - **文档 (Document)**: 创建/读取云文档，管理文档块
-- **云空间 (Space)**: 文件管理、上传下载
-- **电子表格 (Spreadsheet)**: 读写表格数据
-- **通讯录 (Contacts)**: 查询用户信息
+- **云空间 (Space)**: 文件管理（递归列表/搜索/上传/下载）、文件夹创建/删除、空间统计、导入导出
+- **电子表格 (Spreadsheet)**: 读写表格数据、管理工作表、行列操作、单元格样式/合并/查找替换
+- **通讯录 (Contacts)**: 查询用户信息、批量获取用户；部门搜索及子部门/成员列表管理
 - **任务 (Task)**: 任务管理
 - **知识库 (Wiki Spaces)**: 知识库空间管理
 
 ### 触发器
 
-- **Lark Trigger**: 通过 WebSocket 长连接接收飞书事件推送（仅支持中国版飞书）
-- **Lark Webhook Trigger** ✨ 新增: 通过 HTTP Webhook 接收事件回调，支持加密推送解密、URL 验证
+- **Lark Trigger**: 通过 WebSocket 长连接接收飞书事件推送（仅支持中国版飞书）。支持卡片回调同步响应（Response Node 模式）。
+- **Lark Webhook Trigger** ✨ 新增: 通过 HTTP Webhook 接收事件回调，支持加密推送解密、URL 验证、Response Node 模式
 - **Webhook**: 通过 n8n Webhook 节点接收事件（支持国际版 Lark）
 
 ### 响应节点
@@ -67,6 +70,8 @@ npm install @snae/n8n-nodes-feishu
 4. 配置所需的 Scope 权限（建议包含 `offline_access`）
 
 详细配置请参考[飞书开放平台文档](https://open.feishu.cn/document/)。
+
+飞书开放平台 API 文档: [Server Docs](https://open.feishu.cn/document/server-docs)
 
 ## 开发
 

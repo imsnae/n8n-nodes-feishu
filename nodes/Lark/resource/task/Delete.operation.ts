@@ -1,10 +1,11 @@
 import { IDataObject, IExecuteFunctions } from 'n8n-workflow';
 import { ResourceOperation } from '../../../help/type/IResource';
+import { OperationType } from '../../../help/type/enums';
 import RequestUtils from '../../../help/utils/RequestUtils';
 
 export default {
 	name: 'Delete Task | 删除任务',
-	value: 'delete',
+	value: OperationType.DeleteTask,
 	order: 100,
 	options: [
 		{

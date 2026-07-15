@@ -18,6 +18,7 @@ export declare const enum MessageType {
 export declare const enum ResourceType {
 	Base = 'base',
 	Calendar = 'calendar',
+	Chat = 'chat',
 	Contacts = 'contacts',
 	Document = 'document',
 	Message = 'message',
@@ -98,6 +99,9 @@ export declare const enum OperationType {
 	ParseWebhookMessage = 'parseWebhook',
 	SendStreamMessage = 'stream',
 	UpdateInteractiveCard = 'updateInteractiveCard',
+	GetMessage = 'getMessage',
+	GetMessageList = 'getMessageList',
+	GetMessageResourceFile = 'getMessageResource',
 
 	// Document
 	CreateDocument = 'create',
@@ -122,10 +126,18 @@ export declare const enum OperationType {
 	UploadMediaToSpace = 'uploadMedia',
 	DownloadMediaToSpace = 'downloadMedia',
 	GetMediaTempDownloadLinkToSpace = 'getMediaTempDownloadLink',
+	GetFileStatistics = 'getFileStatistics',
+	ImportFile = 'importFile',
+	ExportFile = 'exportFile',
+	GetFileViewRecords = 'getFileViewRecords',
 
 	// Contact
 	BatchGetUserInfo = 'batchGetUserInfo',
 	GetUserInfo = 'getUserInfo',
+	GetDepartmentChildren = 'getDepartmentChildren',
+	GetDepartmentUserList = 'getDepartmentUserList',
+	BatchGetUserId = 'batchGetUserId',
+	SearchDepartment = 'searchDepartment',
 
 	// Spreadsheet
 	CreateSpreadsheet = 'create',
@@ -177,6 +189,42 @@ export declare const enum OperationType {
 	// MCP
 	ListTools = 'listTools',
 	ExecuteTool = 'executeTool',
+
+	// Chat
+	CreateChat = 'create',
+	UpdateChat = 'update',
+	DeleteChat = 'delete',
+	GetChatInfo = 'getInfo',
+	GetChatList = 'getList',
+	SearchChat = 'search',
+	AddChatMembers = 'addMembers',
+	RemoveChatMembers = 'removeMembers',
+	GetChatMembers = 'getMembers',
+	AddChatManagers = 'addManagers',
+	RemoveChatManagers = 'removeManagers',
+	IsInChat = 'isInChat',
+
+	// Task
+	CreateTask = 'create',
+	UpdateTask = 'update',
+	DeleteTask = 'delete',
+	GetTaskInfo = 'getInfo',
+	AddTaskMembers = 'addMembers',
+	RemoveTaskMembers = 'removeMembers',
+
+	// Wiki Spaces
+	GetWikiSpaceInfo = 'getSpaceInfo',
+	GetWikiSpaceList = 'getWikiSpaceList',
+	UpdateWikiSpaceSettings = 'updateSpaceSettings',
+	AddWikiSpaceMember = 'addSpaceMember',
+	DeleteWikiSpaceMember = 'deleteSpaceMember',
+	GetWikiSpaceMembers = 'getSpaceMembers',
+	CreateWikiSpaceNode = 'createSpaceNode',
+	GetWikiSpaceNodeInfo = 'getSpaceNodeInfo',
+	GetWikiSpaceNodeChildren = 'getSpaceNodeChildren',
+	MoveWikiSpaceNode = 'moveSpaceNode',
+	CopyWikiSpaceNode = 'copySpaceNode',
+	UpdateWikiSpaceNodeTitle = 'updateSpaceNodeTitle',
 }
 
 export declare const enum OutputType {
