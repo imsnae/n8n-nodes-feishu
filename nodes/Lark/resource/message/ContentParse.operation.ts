@@ -2,6 +2,7 @@ import {
 	IDataObject,
 	IExecuteFunctions,
 	NodeOperationError,
+	jsonParse,
 } from 'n8n-workflow';
 import { ResourceOperation } from '../../../help/type/IResource';
 import { MessageType, OperationType } from '../../../help/type/enums';
@@ -49,8 +50,19 @@ export default {
 	],
 
 	async call(this: IExecuteFunctions, index: number): Promise<IDataObject> {
-		const content = this.getNodeParameter('content', index) as IDataObject;
+		const rawContent = this.getNodeParameter('content', index) as string | IDataObject;
 		const msgType = this.getNodeParameter('msg_type', index) as string;
+
+		let content: IDataObject;
+		if (typeof rawContent === 'string') {
+			try {
+				content = jsonParse<IDataObject>(rawContent);
+			} catch {
+				throw new NodeOperationError(this.getNode(), 'Message content is not valid JSON');
+			}
+		} else {
+			content = rawContent;
+		}
 
 		if (!content || (typeof content === 'object' && Object.keys(content).length === 0)) {
 			throw new NodeOperationError(this.getNode(), 'Message content is empty');

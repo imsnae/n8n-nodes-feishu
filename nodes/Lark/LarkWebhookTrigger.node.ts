@@ -37,10 +37,7 @@ export class LarkWebhookTrigger implements INodeType {
 				name: 'default',
 				httpMethod: 'POST',
 				responseMode: '={{$parameter["responseMode"]}}',
-				responseData: '',
 				path: 'webhook',
-				restartWebhook: true,
-				isFullPath: true,
 			},
 		],
 		properties: [
