@@ -9,7 +9,7 @@ import type {
 } from 'n8n-workflow';
 import { NodeConnectionTypes, NodeOperationError } from 'n8n-workflow';
 import ResourceFactory from '../help/builder/ResourceFactory';
-import { OP_COLLECTION_PREFIX } from '../help/builder/ResourceBuilder';
+
 
 import { Credentials, FileType, OperationType, OutputType } from '../help/type/enums';
 import {
@@ -36,7 +36,7 @@ export class Lark implements INodeType {
 		version: [1],
 		defaultVersion: 1,
 		description: 'Consume Lark API',
-		subtitle: 'Feishu / Lark',
+		subtitle: '={{$parameter["operation"] + ": " + $parameter["resource"]}}',
 		defaults: {
 			name: 'Lark',
 		},
@@ -370,26 +370,6 @@ export class Lark implements INodeType {
 			);
 		}
 
-		const collectionName = `${OP_COLLECTION_PREFIX}${resource}_${operation}`;
-		const remap = (paramName: string, itemIndex: number, opts?: any) => {
-			const remapped = `${collectionName}.values.${paramName}`;
-			try {
-				return this.getNodeParameter(remapped, itemIndex, opts);
-			} catch {
-				return this.getNodeParameter(paramName, itemIndex, opts);
-			}
-		};
-
-		const ctx = new Proxy(this, {
-			get(target: any, prop: string | symbol) {
-				if (prop === 'getNodeParameter') {
-					return remap;
-				}
-				const val = target[prop];
-				return typeof val === 'function' ? val.bind(target) : val;
-			},
-		});
-
 		for (let itemIndex = 0; itemIndex < items.length; itemIndex++) {
 			try {
 				this.logger.debug('call function', {
@@ -398,7 +378,7 @@ export class Lark implements INodeType {
 					itemIndex,
 				});
 
-				const responseData = await callFunc.call(ctx, itemIndex);
+				const responseData = await callFunc.call(this, itemIndex);
 				const { outputType } = responseData;
 				if (!outputType) {
 					// Default to single output
