@@ -1,6 +1,6 @@
 {
   "name": "@snae/n8n-nodes-feishu",
-  "version": "2.2.6",
+  "version": "2.3.0",
   "description": "n8n custom nodes for n8n to interact with Feishu/Lark, including Lark Bot, Lark MCP, and Lark Trigger.",
   "keywords": [
     "n8n-community-node-package",
@@ -47,6 +47,16 @@
     ],
     "nodes": [
       "dist/nodes/Lark/Lark.node.js",
+      "dist/nodes/Lark/nodes/LarkBase.node.js",
+      "dist/nodes/Lark/nodes/LarkCalendar.node.js",
+      "dist/nodes/Lark/nodes/LarkChat.node.js",
+      "dist/nodes/Lark/nodes/LarkContacts.node.js",
+      "dist/nodes/Lark/nodes/LarkDocument.node.js",
+      "dist/nodes/Lark/nodes/LarkSpace.node.js",
+      "dist/nodes/Lark/nodes/LarkSpreadsheet.node.js",
+      "dist/nodes/Lark/nodes/LarkTask.node.js",
+      "dist/nodes/Lark/nodes/LarkWiki.node.js",
+      "dist/nodes/Lark/nodes/LarkMessage.node.js",
       "dist/nodes/Lark/LarkTrigger.node.js",
       "dist/nodes/Lark/LarkWebhookTrigger.node.js",
       "dist/nodes/Lark/RespondToLark.node.js"
