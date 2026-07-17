@@ -4,21 +4,9 @@ import type {
 	INodeType,
 	INodeTypeDescription,
 	IDataObject,
-	INodeParameters,
 	IN8nHttpFullResponse,
 } from 'n8n-workflow';
 import { NodeConnectionTypes, NodeOperationError } from 'n8n-workflow';
-
-const configuredOutputs = (parameters: INodeParameters) => {
-	const enableResponseOutput = parameters.enableResponseOutput as boolean;
-	if (enableResponseOutput) {
-		return [
-			{ type: 'main', displayName: 'Input Data' },
-			{ type: 'main', displayName: 'Response Data' },
-		];
-	}
-	return ['main'];
-};
 
 export class RespondToLark implements INodeType {
 	description: INodeTypeDescription = {
@@ -30,13 +18,12 @@ export class RespondToLark implements INodeType {
 		defaultVersion: 1,
 		description:
 			'Sends a synchronous response back to the Lark Trigger or Lark Webhook Trigger node. Place this node after your trigger and processing nodes to send a custom response to card callbacks and other synchronous events. | 向 Lark Trigger 或 Lark Webhook Trigger 节点发送同步响应。将此节点放在触发器和处理节点之后，以向卡片回调和其他同步事件发送自定义响应。',
-		subtitle:
-			'={{$parameter["respondWith"] === "json" ? "Returns custom JSON data" : "No response data"}}',
+		subtitle: 'Respond to Lark',
 		defaults: {
 			name: 'Respond to Lark',
 		},
 		inputs: [NodeConnectionTypes.Main],
-		outputs: `={{(${configuredOutputs})($parameter)}}`,
+		outputs: ['main', 'main'],
 		properties: [
 			{
 				displayName:

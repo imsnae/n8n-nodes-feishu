@@ -3,6 +3,8 @@ import { IResource, ResourceOperation } from '../type/IResource';
 import { INodeProperties } from 'n8n-workflow';
 import { Credentials } from '../type/enums';
 
+export const OP_COLLECTION_PREFIX = '__op_';
+
 class ResourceBuilder {
 	resources: IResource[] = [];
 
@@ -78,19 +80,41 @@ class ResourceBuilder {
 			});
 
 			for (const operation of resource.operations) {
-				for (let option of operation.options) {
-					list.push({
-						...option,
-						displayOptions: {
-							...(option.displayOptions || {}),
-							show: {
-								...(option.displayOptions?.show || {}),
-								resource: [resource.value],
-								operation: [operation.value],
-							},
+				if (operation.options.length === 0) continue;
+				const collectionName = `${OP_COLLECTION_PREFIX}${resource.value}_${operation.value}`;
+				list.push({
+					displayName: operation.name as string,
+					name: collectionName,
+					type: 'fixedCollection',
+					typeOptions: {
+						multipleValues: false,
+					},
+					displayOptions: {
+						show: {
+							resource: [resource.value],
+							operation: [operation.value],
 						},
-					});
-				}
+					},
+					options: [
+						{
+							name: 'values',
+							displayName: 'Parameters',
+							values: operation.options.map((opt) => {
+								const cloned: INodeProperties = { ...opt } as INodeProperties;
+								if (cloned.displayOptions?.show) {
+									const { resource: _r, operation: _o, ...rest } = cloned.displayOptions.show;
+									if (Object.keys(rest).length > 0) {
+										cloned.displayOptions = { show: rest } as any;
+									} else {
+										delete cloned.displayOptions;
+									}
+								}
+								return cloned;
+							}),
+						},
+					],
+					default: {},
+				});
 			}
 		}
 
