@@ -10,7 +10,7 @@ import type {
 import { NodeConnectionTypes, NodeOperationError } from 'n8n-workflow';
 import ResourceFactory from '../help/builder/ResourceFactory';
 
-import { configuredOutputs } from '../help/utils/parameters';
+
 import { Credentials, FileType, OperationType, OutputType } from '../help/type/enums';
 import {
 	getFileList,
@@ -42,7 +42,7 @@ export class Lark implements INodeType {
 		},
 		usableAsTool: true,
 		inputs: [NodeConnectionTypes.Main],
-		outputs: `={{(${configuredOutputs})($parameter)}}`,
+		outputs: ['main'],
 		credentials: [
 			{
 				name: Credentials.TenantToken,
