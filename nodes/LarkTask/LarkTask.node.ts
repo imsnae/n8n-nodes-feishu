@@ -1,22 +1,19 @@
 import type {
 	IExecuteFunctions,
-	INodeListSearchResult,
-	ILoadOptionsFunctions,
 	INodeExecutionData,
 	INodeType,
 	INodeTypeDescription,
 	IDataObject,
 } from 'n8n-workflow';
 import { NodeConnectionTypes, NodeOperationError } from 'n8n-workflow';
-import ResourceFactory from '../../help/builder/ResourceFactory';
-import { Credentials, OperationType, OutputType } from '../../help/type/enums';
-import { sendAndWaitWebhook } from '../../help/utils/webhook';
-import RequestUtils from '../../help/utils/RequestUtils';
+import ResourceFactory from '../help/builder/ResourceFactory';
+import { Credentials, OutputType } from '../help/type/enums';
+import { sendAndWaitWebhook } from '../help/utils/webhook';
 
-const resourceBuilder = ResourceFactory.build(require('path').resolve(__dirname, '..'));
-const MESSAGE_RESOURCE = 'message';
+const resourceBuilder = ResourceFactory.build(require('path').resolve(__dirname, '..', 'Lark'));
+const TASK_RESOURCE = 'task';
 
-function filterMessageProperties(allProps: any[]): any[] {
+function filterTaskProperties(allProps: any[]): any[] {
 	const filtered: any[] = [];
 	for (const prop of allProps) {
 		const show = prop.displayOptions?.show;
@@ -24,27 +21,27 @@ function filterMessageProperties(allProps: any[]): any[] {
 			filtered.push(prop);
 			continue;
 		}
-		if (show.resource?.includes(MESSAGE_RESOURCE)) {
+		if (show.resource?.includes(TASK_RESOURCE)) {
 			filtered.push(prop);
 		}
 	}
 	return filtered;
 }
 
-const messageProperties = filterMessageProperties(resourceBuilder.build());
+const taskProperties = filterTaskProperties(resourceBuilder.build());
 
-export class LarkMessage implements INodeType {
+export class LarkTask implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'Lark Message',
-		name: 'larkMessage',
+		displayName: 'Lark Task',
+		name: 'larkTask',
 		icon: 'file:lark_icon.svg',
 		group: ['input'],
 		version: [1],
 		defaultVersion: 1,
-		description: 'Lark Message Operations (Send, Get, Search, Reply, Parse, Content)',
+		description: 'Lark Task Operations (Create, Update, Members)',
 		subtitle: '={{$parameter["operation"]}}',
 		defaults: {
-			name: 'Lark Message',
+			name: 'Lark Task',
 		},
 		usableAsTool: true,
 		inputs: [NodeConnectionTypes.Main],
@@ -53,85 +50,13 @@ export class LarkMessage implements INodeType {
 			{
 				name: Credentials.TenantToken,
 				required: true,
-				displayOptions: {
-					hide: {
-						operation: [OperationType.ParseWebhookMessage, OperationType.ParseMessageContent],
-					},
-				},
 			},
 			{
 				name: Credentials.UserToken,
 				required: true,
-				displayOptions: {
-					hide: {
-						operation: [OperationType.ParseWebhookMessage, OperationType.ParseMessageContent],
-					},
-				},
 			},
 		],
-		webhooks: [
-			{
-				name: 'default',
-				httpMethod: 'GET',
-				responseMode: 'onReceived',
-				responseData: '',
-				path: '={{ $nodeId }}',
-				restartWebhook: true,
-				isFullPath: true,
-			},
-			{
-				name: 'default',
-				httpMethod: 'POST',
-				responseMode: 'onReceived',
-				responseData: '',
-				path: '={{ $nodeId }}',
-				restartWebhook: true,
-				isFullPath: true,
-			},
-		],
-		properties: messageProperties,
-	};
-
-	methods = {
-		listSearch: {
-			async searchUserIds(
-				this: ILoadOptionsFunctions,
-				query?: string,
-			): Promise<INodeListSearchResult> {
-				if (!query) {
-					throw new NodeOperationError(this.getNode(), 'Query required for search');
-				}
-
-				const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-				const body = emailRegex.test(query) ? { emails: [query] } : { mobiles: [query] };
-
-				const results: any[] = [];
-				const userIdTypes = ['open_id', 'user_id', 'union_id'];
-				for (const userIdType of userIdTypes) {
-					const {
-						data: { user_list: users },
-					} = await RequestUtils.request.call(this as unknown as IExecuteFunctions, {
-						method: 'POST',
-						url: '/open-apis/contact/v3/users/batch_get_id',
-						qs: {
-							user_id_type: userIdType,
-						},
-						body,
-					});
-
-					if (!users[0].user_id) {
-						throw new NodeOperationError(this.getNode(), `No user found for: ${query}`);
-					}
-
-					results.push({
-						name: userIdType,
-						value: users[0]?.user_id || '',
-					});
-				}
-
-				return { results };
-			},
-		},
+		properties: taskProperties,
 	};
 
 	webhook = sendAndWaitWebhook;
@@ -141,18 +66,18 @@ export class LarkMessage implements INodeType {
 		let returnData: INodeExecutionData[][] = Array.from({ length: 1 }, () => []);
 
 		const operation = this.getNodeParameter('operation', 0);
-		const callFunc = resourceBuilder.getCall(MESSAGE_RESOURCE, operation);
+		const callFunc = resourceBuilder.getCall(TASK_RESOURCE, operation);
 
 		if (!callFunc) {
 			throw new NodeOperationError(
 				this.getNode(),
-				'No operation found: ' + MESSAGE_RESOURCE + '.' + operation,
+				'No operation found: ' + TASK_RESOURCE + '.' + operation,
 			);
 		}
 
 		for (let itemIndex = 0; itemIndex < items.length; itemIndex++) {
 			try {
-				this.logger.debug('call function', { resource: MESSAGE_RESOURCE, operation, itemIndex });
+				this.logger.debug('call function', { resource: TASK_RESOURCE, operation, itemIndex });
 				const responseData = await callFunc.call(this, itemIndex);
 				const { outputType } = responseData;
 				if (!outputType) {
@@ -184,7 +109,7 @@ export class LarkMessage implements INodeType {
 				}
 			} catch (error) {
 				this.logger.error('call function error', {
-					resource: MESSAGE_RESOURCE,
+					resource: TASK_RESOURCE,
 					operation,
 					itemIndex,
 					errorMessage: error.message,
@@ -212,4 +137,7 @@ export class LarkMessage implements INodeType {
 		return returnData;
 	}
 }
+
+
+
 

@@ -6,12 +6,12 @@ import type {
 	IDataObject,
 } from 'n8n-workflow';
 import { NodeConnectionTypes, NodeOperationError } from 'n8n-workflow';
-import ResourceFactory from '../../help/builder/ResourceFactory';
-import { Credentials, OutputType } from '../../help/type/enums';
+import ResourceFactory from '../help/builder/ResourceFactory';
+import { Credentials, OutputType } from '../help/type/enums';
 
-import { sendAndWaitWebhook } from '../../help/utils/webhook';
+import { sendAndWaitWebhook } from '../help/utils/webhook';
 
-const resourceBuilder = ResourceFactory.build(require('path').resolve(__dirname, '..'));
+const resourceBuilder = ResourceFactory.build(require('path').resolve(__dirname, '..', 'Lark'));
 const CHAT_RESOURCE = 'chat';
 
 function filterChatProperties(allProps: any[]): any[] {
@@ -138,4 +138,8 @@ export class LarkChat implements INodeType {
 		return returnData;
 	}
 }
+
+
+
+
 

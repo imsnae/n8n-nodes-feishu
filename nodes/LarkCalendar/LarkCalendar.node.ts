@@ -8,15 +8,15 @@ import type {
 	IDataObject,
 } from 'n8n-workflow';
 import { NodeConnectionTypes, NodeOperationError } from 'n8n-workflow';
-import ResourceFactory from '../../help/builder/ResourceFactory';
-import { Credentials, OutputType } from '../../help/type/enums';
-import { sendAndWaitWebhook } from '../../help/utils/webhook';
-import RequestUtils from '../../help/utils/RequestUtils';
+import ResourceFactory from '../help/builder/ResourceFactory';
+import { Credentials, OutputType } from '../help/type/enums';
+import { larkApiRequestCalendarEventList, larkApiRequestCalendarList } from '../Lark/GenericFunctions';
+import { sendAndWaitWebhook } from '../help/utils/webhook';
 
-const resourceBuilder = ResourceFactory.build(require('path').resolve(__dirname, '..'));
-const CONTACTS_RESOURCE = 'contacts';
+const resourceBuilder = ResourceFactory.build(require('path').resolve(__dirname, '..', 'Lark'));
+const CALENDAR_RESOURCE = 'calendar';
 
-function filterContactsProperties(allProps: any[]): any[] {
+function filterCalendarProperties(allProps: any[]): any[] {
 	const filtered: any[] = [];
 	for (const prop of allProps) {
 		const show = prop.displayOptions?.show;
@@ -24,27 +24,27 @@ function filterContactsProperties(allProps: any[]): any[] {
 			filtered.push(prop);
 			continue;
 		}
-		if (show.resource?.includes(CONTACTS_RESOURCE)) {
+		if (show.resource?.includes(CALENDAR_RESOURCE)) {
 			filtered.push(prop);
 		}
 	}
 	return filtered;
 }
 
-const contactsProperties = filterContactsProperties(resourceBuilder.build());
+const calendarProperties = filterCalendarProperties(resourceBuilder.build());
 
-export class LarkContacts implements INodeType {
+export class LarkCalendar implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'Lark Contacts',
-		name: 'larkContacts',
+		displayName: 'Lark Calendar',
+		name: 'larkCalendar',
 		icon: 'file:lark_icon.svg',
 		group: ['input'],
 		version: [1],
 		defaultVersion: 1,
-		description: 'Lark Contacts Operations (Users, Departments)',
+		description: 'Lark Calendar Operations (Events, Calendars, Attendees, Meetings)',
 		subtitle: '={{$parameter["operation"]}}',
 		defaults: {
-			name: 'Lark Contacts',
+			name: 'Lark Calendar',
 		},
 		usableAsTool: true,
 		inputs: [NodeConnectionTypes.Main],
@@ -59,12 +59,22 @@ export class LarkContacts implements INodeType {
 				required: true,
 			},
 		],
-		properties: contactsProperties,
+		properties: calendarProperties,
 	};
 
 	methods = {
 		listSearch: {
-			async searchUserIds(
+			async searchCalendars(this: ILoadOptionsFunctions): Promise<INodeListSearchResult> {
+				const calendars = await larkApiRequestCalendarList.call(this as unknown as IExecuteFunctions);
+				return {
+					results: calendars.map((calendar) => ({
+						name: calendar.summary as string,
+						value: calendar.calendar_id as string,
+					})),
+				};
+			},
+
+			async searchCalendarEvents(
 				this: ILoadOptionsFunctions,
 				query?: string,
 			): Promise<INodeListSearchResult> {
@@ -72,34 +82,27 @@ export class LarkContacts implements INodeType {
 					throw new NodeOperationError(this.getNode(), 'Query required for search');
 				}
 
-				const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-				const body = emailRegex.test(query) ? { emails: [query] } : { mobiles: [query] };
+				const calendarId = this.getNodeParameter('calendar_id', undefined, {
+					extractValue: true,
+				}) as string;
 
-				const results: any[] = [];
-				const userIdTypes = ['open_id', 'user_id', 'union_id'];
-				for (const userIdType of userIdTypes) {
-					const {
-						data: { user_list: users },
-					} = await RequestUtils.request.call(this as unknown as IExecuteFunctions, {
-						method: 'POST',
-						url: '/open-apis/contact/v3/users/batch_get_id',
-						qs: {
-							user_id_type: userIdType,
-						},
-						body,
-					});
-
-					if (!users[0].user_id) {
-						throw new NodeOperationError(this.getNode(), `No user found for: ${query}`);
-					}
-
-					results.push({
-						name: userIdType,
-						value: users[0]?.user_id || '',
-					});
+				if (!calendarId) {
+					throw new NodeOperationError(this.getNode(), 'Calendar ID required for search');
 				}
 
-				return { results };
+				const user_id_type = this.getNodeParameter('user_id_type', 'open_id') as string;
+				const events = await larkApiRequestCalendarEventList.call(this as unknown as IExecuteFunctions, {
+					calendarId,
+					query,
+					user_id_type,
+				});
+				return {
+					results: events.map((event) => ({
+						name: event.summary as string,
+						value: event.event_id as string,
+						url: event.app_link as string,
+					})),
+				};
 			},
 		},
 	};
@@ -111,18 +114,18 @@ export class LarkContacts implements INodeType {
 		let returnData: INodeExecutionData[][] = Array.from({ length: 1 }, () => []);
 
 		const operation = this.getNodeParameter('operation', 0);
-		const callFunc = resourceBuilder.getCall(CONTACTS_RESOURCE, operation);
+		const callFunc = resourceBuilder.getCall(CALENDAR_RESOURCE, operation);
 
 		if (!callFunc) {
 			throw new NodeOperationError(
 				this.getNode(),
-				'No operation found: ' + CONTACTS_RESOURCE + '.' + operation,
+				'No operation found: ' + CALENDAR_RESOURCE + '.' + operation,
 			);
 		}
 
 		for (let itemIndex = 0; itemIndex < items.length; itemIndex++) {
 			try {
-				this.logger.debug('call function', { resource: CONTACTS_RESOURCE, operation, itemIndex });
+				this.logger.debug('call function', { resource: CALENDAR_RESOURCE, operation, itemIndex });
 				const responseData = await callFunc.call(this, itemIndex);
 				const { outputType } = responseData;
 				if (!outputType) {
@@ -154,7 +157,7 @@ export class LarkContacts implements INodeType {
 				}
 			} catch (error) {
 				this.logger.error('call function error', {
-					resource: CONTACTS_RESOURCE,
+					resource: CALENDAR_RESOURCE,
 					operation,
 					itemIndex,
 					errorMessage: error.message,
@@ -182,4 +185,8 @@ export class LarkContacts implements INodeType {
 		return returnData;
 	}
 }
+
+
+
+
 

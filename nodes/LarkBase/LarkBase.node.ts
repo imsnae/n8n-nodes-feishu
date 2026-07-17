@@ -8,18 +8,18 @@ import type {
 	IDataObject,
 } from 'n8n-workflow';
 import { NodeConnectionTypes, NodeOperationError } from 'n8n-workflow';
-import ResourceFactory from '../../help/builder/ResourceFactory';
-import { Credentials, FileType, OutputType } from '../../help/type/enums';
+import ResourceFactory from '../help/builder/ResourceFactory';
+import { Credentials, FileType, OutputType } from '../help/type/enums';
 import {
 	getFileList,
 	larkApiRequestBaseRoleList,
 	larkApiRequestTableFieldList,
 	larkApiRequestTableList,
 	larkApiRequestTableViewList,
-} from '../GenericFunctions';
-import { sendAndWaitWebhook } from '../../help/utils/webhook';
+} from '../Lark/GenericFunctions';
+import { sendAndWaitWebhook } from '../help/utils/webhook';
 
-const resourceBuilder = ResourceFactory.build(require('path').resolve(__dirname, '..'));
+const resourceBuilder = ResourceFactory.build(require('path').resolve(__dirname, '..', 'Lark'));
 const BASE_RESOURCE = 'base';
 
 function filterBaseProperties(allProps: any[]): any[] {
@@ -237,4 +237,8 @@ export class LarkBase implements INodeType {
 		return returnData;
 	}
 }
+
+
+
+
 

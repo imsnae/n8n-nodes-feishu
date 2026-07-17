@@ -8,12 +8,12 @@ import type {
 	IDataObject,
 } from 'n8n-workflow';
 import { NodeConnectionTypes, NodeOperationError } from 'n8n-workflow';
-import ResourceFactory from '../../help/builder/ResourceFactory';
-import { Credentials, OutputType } from '../../help/type/enums';
-import { larkApiRequestSheetList } from '../GenericFunctions';
-import { sendAndWaitWebhook } from '../../help/utils/webhook';
+import ResourceFactory from '../help/builder/ResourceFactory';
+import { Credentials, OutputType } from '../help/type/enums';
+import { larkApiRequestSheetList } from '../Lark/GenericFunctions';
+import { sendAndWaitWebhook } from '../help/utils/webhook';
 
-const resourceBuilder = ResourceFactory.build(require('path').resolve(__dirname, '..'));
+const resourceBuilder = ResourceFactory.build(require('path').resolve(__dirname, '..', 'Lark'));
 const SPREADSHEET_RESOURCE = 'spreadsheet';
 
 function filterSpreadsheetProperties(allProps: any[]): any[] {
@@ -165,4 +165,8 @@ export class LarkSpreadsheet implements INodeType {
 		return returnData;
 	}
 }
+
+
+
+
 
